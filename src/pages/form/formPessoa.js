@@ -55,11 +55,11 @@ const FormPessoa = ({ loadPessoa, pessoa, loaded }) => {
 
     return (
         <Box>
-            Cadastro de Pessoa
 
             {<CustomTable 
                         headers={headers} 
                         showEdit={true}
+                        showDelete={true}
                         handleEdit={(id) => initPerfilForm(id)}
                         handleDelete={() => {}}
                         data={pessoa}
