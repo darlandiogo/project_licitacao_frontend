@@ -8,6 +8,8 @@ import { FormGroup, Paper, Typography } from '@material-ui/core';
 import { Input, PrimaryButton } from '../../components/form';
 import Error from "../../components/error";
 
+import { validate } from "../../helpers";
+
 import { loginUser, resetError } from "../../store/ducks/login";
 
 import './style.css';
@@ -18,8 +20,6 @@ const Login  = ( { loginUser, loaded, errors, user } ) => {
   const [password, setPassword] = useState('');
 
   setTimeout(()=>{ resetError() },3000)
-
-  const validate = (value) => errors.find(elem => elem.field === value);
 
   const handleSubmit = ( ) => {
       loginUser({ email, password })
@@ -40,7 +40,7 @@ const Login  = ( { loginUser, loaded, errors, user } ) => {
               label="username"
               name="username"
               value={email}
-              error={validate('email')}
+              error={validate('email', errors)}
               onChange={e => setEmail(e.target.value)}
             />
           </FormGroup>
@@ -49,7 +49,7 @@ const Login  = ( { loginUser, loaded, errors, user } ) => {
               name="password"
               label="senha"
               value={password}
-              error={validate('password')}
+              error={validate('password', errors)}
               onChange={e => setPassword(e.target.value)}
             />
           </FormGroup> 

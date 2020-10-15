@@ -23,8 +23,15 @@ import Button from "@material-ui/core/Button";
 export const Input = React.memo( ({ input, secureTextEntry = false, error, ...custom }) => {
     
     const hasError = (error || false) !== false;
-    return <TextField {...input} {...custom} type={secureTextEntry? "password" : "text"} error={hasError} />;
-
+    return (
+        <TextField 
+          {...input} 
+          {...custom} 
+          type={secureTextEntry? "password" : "text"} 
+          error={hasError} 
+        />
+    );
+    
 });
 
 export const InputWithIcon = React.memo(
@@ -64,38 +71,6 @@ export const InputWithIcon = React.memo(
   }
 );
 
-export const SelectOutlined = React.memo(({
-  inputLabel,
-  input,
-  label,
-  variant="outlined",
-  meta: { touched, error },
-  withFormControl = true,
-  ...custom
-}) => {
-
-  const hasError = (error || false) !== false;
-
-  return (
-    <FormControl variant={variant} margin="normal" error={touched && hasError} fullWidth>
-      <InputLabel >
-        {inputLabel}
-      </InputLabel>
-      <Select
-        // value={values.age}
-        // onChange={handleChange}
-        input={<OutlinedInput name="age" id="outlined-age-simple" />}
-      >
-        <MenuItem value="">
-          <em>None</em>
-        </MenuItem>
-        <MenuItem value={10}>Ten</MenuItem>
-        <MenuItem value={20}>Twenty</MenuItem>
-        <MenuItem value={30}>Thirty</MenuItem>
-      </Select>
-    </FormControl>
-  )
-})
 
 export const PrimaryButton = React.memo(
   ({

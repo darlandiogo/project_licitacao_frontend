@@ -16,19 +16,18 @@ import {
 
   
 
-  function* fetchPessoa({ payload }) {
+  function* fetchPessoa({payload}) {
     try{
 
       yield put({ type: types.PESSOA_LOADING });
 
-      /*let errors = validateEmpty(payload);
-      if(errors){
-        throw new Error(errors);
-      } */
+      let params = {   
+        page: payload.page || 1,
+        perPage: payload.perPage || 10,
+        searchTerm: payload.searchTerm || ""
+      };
       
-      let response = yield call(api.fetchPessoa, payload);
-      
-      console.log(response.data)
+      let response = yield call(api.fetchPessoa, params);
 
       const { current_page, last_page, data, total, per_page } = response.data;
 
@@ -47,11 +46,28 @@ import {
       yield put({ type: types.LOAD_PESSOA, payload: null }); 
     }
   }
+
+
+  function* fetchPessoaById({ payload }) {
+    try{
+      yield put({ type: types.PESSOA_LOADING });
+      
+      let response = yield call(api.fetchPessoaById, payload);
+
+      yield put({ type: types.LOAD_PESSOA, payload: response.data });
+
+    }
+    catch(error){
+      console.log(error)
+      yield put({ type: types.LOAD_PESSOA, payload: null }); 
+    }
+  }
  
   
   export default function* pessoaSaga() {
     yield all([
       takeLatest(types.ASYNC_LOAD_PESSOA, fetchPessoa),
+      takeLatest(types.ASYNC_LOAD_PESSOA_ID, fetchPessoaById)
     ]);
   }
   

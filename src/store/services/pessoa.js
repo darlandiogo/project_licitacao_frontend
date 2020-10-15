@@ -1,4 +1,11 @@
 import api from ".";
 
-export const fetchPessoa = values => api().request({ url: "/pessoafisica", method: "GET", data: values });
+export const fetchPessoa = ({ perPage, page, searchTerm }) => {
+    return api().request({ 
+        url: "/pessoafisica", 
+        method: "GET",
+        params: { perPage, page, searchTerm }
+    });
+}
 
+export const fetchPessoaById = (id) => api().request({ url: `/pessoafisica/${id}`, method: "GET" });

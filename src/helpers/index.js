@@ -1,0 +1,1 @@
+export const validate = (value, errors) => errors.find(elem => elem.field === value);

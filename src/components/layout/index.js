@@ -43,7 +43,7 @@ const Layout = ({ logoutUser, children }) => {
     const _logoutUser = () => {
         logoutUser();
         window.location.replace(config("route_basename"));
-    }
+    }   
     
     return (
         <div className={classes.root}>

@@ -103,9 +103,9 @@ const CustomTable = ({
 
 
 
-    if(data.length === 0)
+    if(!Array.isArray(data) || data.length === 0)
         return emptyData();
-        
+
 
     return (
         <Box className={classes.root}>
@@ -137,7 +137,7 @@ const CustomTable = ({
                 </TableRow>
                 </TableHead>
                 <TableBody className={classes.body}>
-                {data.map( (elem, index) => (
+                { data.map( (elem, index) => (
                     <TableRow key={index}>
                         
                         { headers && headers.map ( (item, index) => (

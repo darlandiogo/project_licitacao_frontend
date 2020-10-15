@@ -1,6 +1,8 @@
 export const types = {
     ASYNC_LOAD_PESSOA: "ASYNC_LOAD_PESSOA",
     LOAD_PESSOA: "LOAD_PESSOA",
+    ASYNC_LOAD_PESSOA_ID: "ASYNC_LOAD_PESSOA_ID",
+    LOAD_PESSOA_ID: "LOAD_PESSOA_ID",
     PESSOA_ERROR:  "PESSOA_ERROR",
     PESSOA_LOADING: "PESSOA_LOADING"
 };
@@ -24,6 +26,7 @@ export default (state = INITIAL_STATE, action) => {
     }
 };
 
-export const loadPessoa = (values) => ({ type: types.ASYNC_LOAD_PESSOA, payload: values });
+export const loadPessoa = ( page, perPage ) => ({ type: types.ASYNC_LOAD_PESSOA, payload: {page, perPage} });
+export const loadPessoaById = ( id ) => ({ type: types.ASYNC_LOAD_PESSOA_ID, payload: id})
 export const resetError = () => ({ type: types.PESSOA_ERROR });
 
