@@ -3,9 +3,10 @@ import { Box } from '@material-ui/core';
 
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import CustomTable from '../../../components/table';
+import { PrimaryButton } from '../../../components/form';
 import Loading from "../../../components/loading";
 import { loadPessoa } from "../../../store/ducks/pessoa";
 
@@ -30,6 +31,10 @@ const ListPessoa = ({ loadPessoa, pessoa, loaded }) => {
 
     return (
         <Box>
+            <Link to="/pessoa/create">
+                Adicionar
+            </Link>
+
             {<CustomTable 
                 headers={headers} 
                 showEdit={true}

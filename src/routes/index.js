@@ -24,6 +24,11 @@ export default function Routes() {
           headerTitle='Cadastro Pessoa'
           breadcrumbsConfig={[{label: "pessoa", path: "/pessoa"}]}
           exact component={ListPessoa} /> 
+          <PrivateRoute 
+          path="/pessoa/create" 
+          headerTitle='Adicionar Pessoa'
+          breadcrumbsConfig={[{label: "pessoa", path: "/pessoa/create"}]}
+          component={CreateOrEditPessoa} /> 
         <PrivateRoute 
           path="/pessoa/edit/:id" 
           headerTitle='Editar Pessoa'

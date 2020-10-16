@@ -26,7 +26,8 @@ export const Input = React.memo( ({ input, secureTextEntry = false, error, ...cu
     return (
         <TextField 
           {...input} 
-          {...custom} 
+          {...custom}
+          style={{ marginTop: "1%", marginBottom: "1%"}}
           type={secureTextEntry? "password" : "text"} 
           error={hasError} 
         />

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, FormGroup, Card, CardHeader, CardContent, CardActions, Typography } from '@material-ui/core';
+import { Grid, FormGroup, Card, CardHeader, CardContent, CardActions } from '@material-ui/core';
 import { useForm, Controller } from "react-hook-form";
 import { Input, PrimaryButton } from '../../../components/form';
 
@@ -15,34 +15,63 @@ const FormDadosPessoais = ({ pessoa: { id, name, email, birth_date } }) => {
                 <CardContent>
                     
                 <input type="hidden" name="id" defaultValue={id ? id : ""} ref={register} />
-
-                    <FormGroup>
-                        <Controller
-                            as={Input}
-                            control={control}
-                            label="Nome"
-                            name="name"
-                            defaultValue={name ? name : ""}
-                        />
-                    </FormGroup>
-                    <FormGroup>
-                        <Controller
-                            as={Input}
-                            control={control}
-                            label="E-mail"
-                            name="email"
-                            defaultValue={email ? email : ""}
-                        />
-                    </FormGroup>
-                    <FormGroup>
-                        <Controller
-                            as={Input}
-                            control={control}
-                            label="Data de Nascimento"
-                            name="birthy_date"
-                            defaultValue={birth_date ? birth_date : ""}
-                        />
-                    </FormGroup>
+                <Grid container spacing={3}>
+                        <Grid item xs={12} sm={6}>
+                            <FormGroup>
+                                <Controller
+                                    as={Input}
+                                    control={control}
+                                    label="Nome"
+                                    name="name"
+                                    defaultValue={name ? name : ""}
+                                />
+                            </FormGroup>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <FormGroup>
+                                <Controller
+                                    as={Input}
+                                    control={control}
+                                    label="E-mail"
+                                    name="email"
+                                    defaultValue={email ? email : ""}
+                                />
+                            </FormGroup>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <FormGroup>
+                                <Controller
+                                    as={Input}
+                                    control={control}
+                                    label="Data de Nasc. (00/00/0000)"
+                                    name="birthy_date"
+                                    defaultValue={birth_date ? birth_date : ""}
+                                />
+                            </FormGroup>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <FormGroup>
+                                <Controller
+                                    as={Input}
+                                    control={control}
+                                    label="CPF"
+                                    name="cpf"
+                                    defaultValue={""}
+                                />
+                            </FormGroup>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <FormGroup>
+                                <Controller
+                                    as={Input}
+                                    control={control}
+                                    label="C.I"
+                                    name="ci"
+                                    defaultValue={""}
+                                />
+                            </FormGroup>
+                        </Grid>
+                    </Grid>
                 </CardContent>
                 <CardActions>
                     <PrimaryButton

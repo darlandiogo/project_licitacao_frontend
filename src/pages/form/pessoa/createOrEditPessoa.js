@@ -7,33 +7,14 @@ import Loading from "../../../components/loading";
 
 import FormDadosPessoais  from "./formDadosPessoais";
 import FormAddress from "./formAddress";
+import FormPhone from "./formPhone";
 
 //import { validate } from "../../../helpers";
 
 import { loadPessoaById } from "../../../store/ducks/pessoa";
 const CreateOrEditPessoa = ({ loadPessoaById, pessoa, loaded, errors }) => {
     
-    let { id } = useParams();
-
-    let pes = {
-        id: "",
-        name: "",
-        email: "",
-        birth_date: ""
-    }
-
-    let add = { 
-        pessoa_id: "", 
-        address: "",
-        number: "", 
-        complement: "", 
-        postal_code: "", 
-        neighborhood: "", 
-        city: "", 
-        state: "", 
-        loaded : ""
-    }
-
+    let { id } = useParams(); 
     useEffect(() => {
         if(id){
            loadPessoaById(id);
@@ -48,9 +29,11 @@ const CreateOrEditPessoa = ({ loadPessoaById, pessoa, loaded, errors }) => {
 
     return (
         <div>
-            { pessoa ? <FormDadosPessoais pessoa={pessoa}/> : <FormDadosPessoais pessoa={pes}/> }
+            <FormDadosPessoais pessoa={pessoa}/>
             <br/>
-            {pessoa.address ? (<FormAddress address={pessoa.address}/>) : (<FormAddress address={add}/>) }
+            <FormAddress address={pessoa.address ? pessoa.address: pessoa}/>
+            <br/>
+            <FormPhone phones={pessoa.phones ? pessoa.phones: []}/>
             
         </div>
     );
