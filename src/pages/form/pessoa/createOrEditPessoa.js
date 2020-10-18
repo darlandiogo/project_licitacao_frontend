@@ -4,12 +4,9 @@ import { bindActionCreators } from "redux";
 import {  useParams } from "react-router-dom";
 
 import Loading from "../../../components/loading";
-
 import FormDadosPessoais  from "./formDadosPessoais";
 import FormAddress from "./formAddress";
 import FormPhone from "./formPhone";
-
-//import { validate } from "../../../helpers";
 
 import { loadPessoaById } from "../../../store/ducks/pessoa";
 const CreateOrEditPessoa = ({ loadPessoaById, pessoa, loaded, errors }) => {
@@ -24,8 +21,6 @@ const CreateOrEditPessoa = ({ loadPessoaById, pessoa, loaded, errors }) => {
     if(!loaded){
         return <Loading/>;
     }
-
-    console.log(pessoa);
 
     return (
         <div>

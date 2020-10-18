@@ -6,13 +6,15 @@ import {
     call,
     //fork,
     delay,
-    //select
+    select
   } from "redux-saga/effects";
 
   import { types } from "../ducks/pessoa"; 
   import { types as typesError } from "../ducks/error";
   import { types as typesTable } from '../ducks/table';
   import * as api from '../services/pessoa';
+  import * as apiAddress from '../services/address';
+  import * as apiPhone from '../services/phone';
 
   
 
@@ -63,11 +65,78 @@ import {
     }
   }
  
+  function* createPessoa ({ payload }) {
+    try {
+      yield put({ type: types.PESSOA_LOADING });
+      let response = yield call(api.createPessoa, payload);
+      yield put({ type: types.LOAD_PESSOA, payload: response.data });
+      
+    } 
+    catch (error) {
+      console.log(error);
+    }
+
+  }
+
+  function* updatePessoa({payload}){
+    try {
+      yield put({ type: types.PESSOA_LOADING });
+      let response = yield call(api.updatePessoa, payload.id, payload.values);
+      yield put({ type: types.LOAD_PESSOA, payload: response.data });
+    } 
+    catch (error) {
+      console.log(error);
+    }
+  }
+
+  function* updateAddress({payload}) {
+    try {
+      yield put({ type: types.PESSOA_LOADING });
+      if(!payload.pessoa_id){
+        payload.pessoa_id = yield select (state => state.pessoa.data.id);
+      }
+
+      let response = yield call(apiAddress.updateAddress, payload);
+      let pessoa = yield select (state => state.pessoa.data);
+      pessoa.address = response.data;
+
+      yield put({ type: types.LOAD_PESSOA, payload: pessoa});
+    
+    } 
+    catch (error) {
+      console.log(error);
+    }
+  }
+
+  function* updatePhone({payload}) {
+    try {
+      yield put({ type: types.PESSOA_LOADING });
+      if(!payload.pessoa_id){
+        payload.pessoa_id = yield select (state => state.pessoa.data.id);
+      }
+
+      console.log(payload);
+
+      let response = yield call(apiPhone.updatePhone, payload);
+      let pessoa = yield select (state => state.pessoa.data);
+      pessoa.phones = response.data;
+
+      yield put({ type: types.LOAD_PESSOA, payload: pessoa});
+    
+    } 
+    catch (error) {
+      console.log(error);
+    }
+  }
   
   export default function* pessoaSaga() {
     yield all([
       takeLatest(types.ASYNC_LOAD_PESSOA, fetchPessoa),
-      takeLatest(types.ASYNC_LOAD_PESSOA_ID, fetchPessoaById)
+      takeLatest(types.ASYNC_LOAD_PESSOA_ID, fetchPessoaById),
+      takeLatest(types.ASYNC_CREATE_PESSOA, createPessoa),
+      takeLatest(types.ASYNC_UṔDATE_PESSOA, updatePessoa),
+      takeLatest(types.ASYNC_UPDATE_PESSOA_ADDRESS, updateAddress),
+      takeLatest(types.ASYNC_UPDATE_PESSOA_PHONE, updatePhone)
     ]);
   }
   
