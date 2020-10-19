@@ -5,11 +5,11 @@ import {  useParams } from "react-router-dom";
 
 import Loading from "../../../components/loading";
 import FormDadosPessoais  from "./formDadosPessoais";
-import FormAddress from "./formAddress";
-import FormPhone from "./formPhone";
+import FormAddress from "../common/formAddress";
+import FormPhone from "../common/formPhone";
 
-import { loadPessoaById } from "../../../store/ducks/pessoa";
-const CreateOrEditPessoa = ({ loadPessoaById, pessoa, loaded, errors }) => {
+import { loadPessoaById, updateAddress, updatePhone } from "../../../store/ducks/pessoa";
+const CreateOrEditPessoa = ({ loadPessoaById, updateAddress, updatePhone, pessoa, loaded, errors }) => {
     
     let { id } = useParams(); 
     useEffect(() => {
@@ -26,9 +26,9 @@ const CreateOrEditPessoa = ({ loadPessoaById, pessoa, loaded, errors }) => {
         <div>
             <FormDadosPessoais pessoa={pessoa}/>
             <br/>
-            <FormAddress address={pessoa.address ? pessoa.address: pessoa}/>
+            <FormAddress updateAddress={updateAddress} address={pessoa.address ? pessoa.address: pessoa}/>
             <br/>
-            <FormPhone phones={pessoa.phones ? pessoa.phones: []}/>
+            <FormPhone updatePhone={updatePhone} phones={pessoa.phones ? pessoa.phones: []}/>
             
         </div>
     );
@@ -43,7 +43,7 @@ const mapStateToProps = ( state ) => {
 };
 
 const mapDispatchToProps = (dispatch) =>
-    bindActionCreators({ loadPessoaById }, dispatch);
+    bindActionCreators({ loadPessoaById, updateAddress, updatePhone }, dispatch);
 
 export default connect( 
     mapStateToProps,

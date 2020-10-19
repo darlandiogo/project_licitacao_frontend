@@ -6,17 +6,17 @@ import { bindActionCreators } from "redux";
 import { Link, useHistory } from 'react-router-dom';
 
 import CustomTable from '../../../components/table';
-//import { PrimaryButton } from '../../../components/form';
 import Loading from "../../../components/loading";
-import { loadPessoa } from "../../../store/ducks/pessoa";
 
-const ListPessoa = ({ loadPessoa, pessoa, loaded }) => {
+import { loadFuncionario } from "../../../store/ducks/funcionario";
+
+const ListFuncionario = ({ loadFuncionario, funcionario, loaded }) => {
 
     const history = useHistory();
-    const loadPessoaById = (id) => history.push("pessoa/edit/"+id);
+    const loadFuncionarioById = (id) => history.push("funcionario/edit/"+id);
 
     useEffect(() => {
-        loadPessoa();
+        loadFuncionario();
     },[]);
 
     const headers =  [
@@ -29,9 +29,11 @@ const ListPessoa = ({ loadPessoa, pessoa, loaded }) => {
         return <Loading/>;
     }
 
+    console.log(funcionario);
+
     return (
         <Box>
-            <Link to="/pessoa/create" style={{textDecoration:"none", marginBottom: "5%"}}>
+            <Link to="/funcionario/create" style={{textDecoration:"none", marginBottom: "5%"}}>
                 <Button variant="contained" color="primary">
                     Adicionar
                 </Button>
@@ -42,10 +44,10 @@ const ListPessoa = ({ loadPessoa, pessoa, loaded }) => {
                 headers={headers} 
                 showEdit={true}
                 showDelete={true}
-                handleEdit={(id) => loadPessoaById(id)}
+                handleEdit={(id) => loadFuncionarioById(id)}
                 handleDelete={() => {}}
-                data={pessoa}
-                parentHandlePagination={(page, perPage) => loadPessoa(page,perPage)}
+                data={funcionario}
+                parentHandlePagination={(page, perPage) => loadFuncionario(page,perPage)}
             />}
         </Box>
     );
@@ -53,17 +55,17 @@ const ListPessoa = ({ loadPessoa, pessoa, loaded }) => {
 
 const mapStateToProps = ( state ) => {
     return {
-        errors: state.pessoa.errors || [],
-        pessoa: state.pessoa.data || [],
-        loaded: state.pessoa.loaded
+        errors: state.funcionario.errors || [],
+        funcionario: state.funcionario.data || [],
+        loaded: state.funcionario.loaded
     };
 };
 
 const mapDispatchToProps = (dispatch) =>
-    bindActionCreators({ loadPessoa }, dispatch);
+    bindActionCreators({ loadFuncionario }, dispatch);
 
 export default connect( 
     mapStateToProps,
     mapDispatchToProps
-)(ListPessoa);
+)(ListFuncionario);
   

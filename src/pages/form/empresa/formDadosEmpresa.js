@@ -6,25 +6,25 @@ import { bindActionCreators } from "redux";
 
 import { Input, PrimaryButton } from '../../../components/form';
 
-import { createPessoa, updatePessoa } from '../../../store/ducks/pessoa';
+import { createEmpresa, updateEmpresa } from '../../../store/ducks/empresa';
 
-const FormDadosPessoais = (props) => {
+const FormDadosEmpresa = (props) => {
 
-    let { id, name, email, birth_date } = props.pessoa;
-    let cpf, ci, type = "";
-    if(props.pessoa.pessoa_fisica){
-        cpf = props.pessoa.pessoa_fisica.cpf;
-        ci  = props.pessoa.pessoa_fisica.ci;
-        type = props.pessoa.pessoa_fisica.type;
+    let { id, name, email } = props.empresa;
+    let cnpj, razao_social, type = "";
+    if(props.empresa.pessoa_juridica){
+        cnpj = props.empresa.pessoa_juridica.cnpj;
+        razao_social = props.empresa.pessoa_juridica.razao_social;
+        type = props.empresa.pessoa_juridica.type;
     }
-
+    
     const { register, control, handleSubmit } = useForm();
-    const onSubmit = data => data.id ? props.updatePessoa(data.id, data) : props.createPessoa(data);
+    const onSubmit = data => data.id ? props.updateEmpresa(data.id, data) : props.createEmpresa(data);
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <Card>
-                <CardHeader title="Pessoa"/>
+                <CardHeader title="Empresa"/>
                 <CardContent>
                     
                 <input type="hidden" name="id" defaultValue={id ? id : ""} ref={register} />
@@ -35,7 +35,7 @@ const FormDadosPessoais = (props) => {
                                     required
                                     as={Input}
                                     control={control}
-                                    label="Nome Completo"
+                                    label="Nome Fantasia"
                                     name="name"
                                     defaultValue={name ? name : ""}
                                 />
@@ -55,11 +55,12 @@ const FormDadosPessoais = (props) => {
                         <Grid item xs={12} sm={6}>
                             <FormGroup>
                                 <Controller
+                                    required
                                     as={Input}
                                     control={control}
-                                    label="Nasc.(Ex.: 01/01/1999)"
-                                    name="birth_date"
-                                    defaultValue={birth_date ? birth_date : ""}
+                                    label="CNPJ"
+                                    name="cnpj"
+                                    defaultValue={cnpj ? cnpj : ""}
                                 />
                             </FormGroup>
                         </Grid>
@@ -69,21 +70,9 @@ const FormDadosPessoais = (props) => {
                                     required
                                     as={Input}
                                     control={control}
-                                    label="CPF"
-                                    name="cpf"
-                                    defaultValue={cpf ? cpf : ""}
-                                />
-                            </FormGroup>
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <FormGroup>
-                                <Controller
-                                    required
-                                    as={Input}
-                                    control={control}
-                                    label="C.I / Orgão Emissor"
-                                    name="ci"
-                                    defaultValue={ci ? ci : ""}
+                                    label="Razão Social"
+                                    name="razao_social"
+                                    defaultValue={razao_social ? razao_social : ""}
                                 />
                             </FormGroup>
                         </Grid>
@@ -92,7 +81,7 @@ const FormDadosPessoais = (props) => {
                                 <Controller
                                     as={Input}
                                     control={control}
-                                    label="Qualificação"
+                                    label="Tipo de Empresa"
                                     name="type"
                                     defaultValue={type ? type : ""}
                                 />
@@ -114,9 +103,9 @@ const FormDadosPessoais = (props) => {
 }
 
 const mapDispatchToProps = (dispatch) =>
-    bindActionCreators({ createPessoa, updatePessoa }, dispatch);
+    bindActionCreators({ createEmpresa, updateEmpresa }, dispatch);
 
 export default connect( 
     null,
     mapDispatchToProps
-)(FormDadosPessoais);
+)(FormDadosEmpresa);

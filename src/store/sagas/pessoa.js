@@ -5,7 +5,7 @@ import {
     put,
     call,
     //fork,
-    delay,
+    //delay,
     select
   } from "redux-saga/effects";
 
@@ -114,8 +114,6 @@ import {
       if(!payload.pessoa_id){
         payload.pessoa_id = yield select (state => state.pessoa.data.id);
       }
-
-      console.log(payload);
 
       let response = yield call(apiPhone.updatePhone, payload);
       let pessoa = yield select (state => state.pessoa.data);

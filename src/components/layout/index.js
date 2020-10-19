@@ -19,7 +19,11 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
+import BusinessIcon from '@material-ui/icons/Business';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import CameraFrontIcon from '@material-ui/icons/CameraFront';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import PersonIcon from '@material-ui/icons/Person';
 import MailIcon from '@material-ui/icons/Mail';
 import Link from '@material-ui/core/Link';
 
@@ -86,12 +90,14 @@ const Layout = ({ logoutUser, children }) => {
                 <Divider />
                     <List>
                         {[
-                            {label: 'Dashboard', path: '/dashboard' },
-                            {label: 'Pessoa',  path: '/pessoa'}
+                            {label: 'Dashboard', path: '/dashboard', icon: <DashboardIcon/> },
+                            {label: 'Empresa', path: '/empresa', icon: <BusinessIcon/> },
+                            {label: 'Pessoa',  path: '/pessoa', icon: <PersonIcon/>},
+                            {label: 'Funcionario',  path: '/funcionario', icon: <CameraFrontIcon/>},
                         ].map((elem, index) => (
                             <Link key={index} to={elem.path} component={RouterLink}>
                                 <ListItem button key={index}>
-                                    <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                                    <ListItemIcon>{elem.icon}</ListItemIcon>
                                     <ListItemText primary={elem.label} /> 
                                 </ListItem>
                             </Link>
@@ -99,7 +105,7 @@ const Layout = ({ logoutUser, children }) => {
                         ))}
                         <Link component={RouterLink} to="/" onClick={_logoutUser}>
                             <ListItem button key="index-logout">
-                                <ListItemIcon> <MailIcon /> </ListItemIcon>
+                                <ListItemIcon> <ExitToAppIcon/> </ListItemIcon>
                                 <ListItemText primary="Logout" /> 
                             </ListItem>
                         </Link>

@@ -1,40 +1,36 @@
 import React, {useState, useCallback, useEffect} from 'react';
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import AddIcon from '@material-ui/icons/Add';
 
-import {  Grid, FormGroup, Card, CardHeader, CardContent, CardActions } from '@material-ui/core';
+import {  Grid, FormGroup, Button, Card, CardHeader, CardContent, CardActions } from '@material-ui/core';
 import { useForm } from "react-hook-form";
 
 import { Input, PrimaryButton } from '../../../components/form';
 
-import { updatePhone } from "../../../store/ducks/pessoa";
 const FormPhone = (props) => {
 
-    const [phones , setPhones] = useState(props.phones || []);
+    const [phones, setPhones] = useState(props.phones || []);
     const [number,setNumber] = useState('');
 
     const { register, handleSubmit } = useForm();
     const onSubmit = data => props.updatePhone(data); 
 
     const removeNumber = (index) => {
-        console.log(phones);
         let newList  = phones.filter((_ ,_index) =>  _index != index)
         setPhones(newList);
     } 
     const addNumber = (e) => {
         e.preventDefault();
-        phones.push({ number : number });
-        setNumber('');
+        if(number != ''){
+            phones.push({ number : number });
+            setNumber('');
+        } 
     }
-
-    useEffect(()=>{},[phones]);
 
     const renderPhones = useCallback(() => {
             return (
@@ -88,13 +84,9 @@ const FormPhone = (props) => {
                         </Grid>
                         <Grid item xs={12} sm={2}>
                             <FormGroup>
-                                <PrimaryButton
-                                    type="button"
-                                    variant="contained" 
-                                    color="primary"
-                                    label="Adicionar"
-                                    onClick={addNumber}
-                                />
+                                <Button variant="contained" color="primary" onClick={addNumber}>
+                                    <AddIcon/>
+                                </Button>
                             </FormGroup>
                         </Grid>
                     </Grid>
@@ -115,10 +107,4 @@ const FormPhone = (props) => {
     );
 }
 
-const mapDispatchToProps = (dispatch) =>
-    bindActionCreators({ updatePhone }, dispatch);
-
-export default connect( 
-    null,
-    mapDispatchToProps
-)(FormPhone);
+export default FormPhone;

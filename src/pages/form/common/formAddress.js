@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
 import { Input, PrimaryButton } from '../../../components/form';
-import {updateAddress} from "../../../store/ducks/pessoa";
 
 const FormAddress =  (props) => {
 
@@ -119,10 +118,5 @@ const FormAddress =  (props) => {
     );
 }
 
-const mapDispatchToProps = (dispatch) =>
-    bindActionCreators({ updateAddress }, dispatch);
 
-export default connect( 
-    null,
-    mapDispatchToProps
-)(FormAddress);
+export default FormAddress;
