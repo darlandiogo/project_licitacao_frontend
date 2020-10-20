@@ -3,7 +3,7 @@ export default theme => ({
         padding: 0,
         left:10,
         height: "auto",
-        maxHeight: "50vh",
+        maxHeight: "70vh",
         overflowY: "auto"
         
     },
