@@ -16,12 +16,23 @@ import {
   import * as apiAddress from '../services/address';
   import * as apiPhone from '../services/phone';
 
-  
+  function* searchPessoa ({payload}){
+    try {
+      yield put ({ 
+        type: types.ASYNC_LOAD_PESSOA, 
+        payload: { searchTerm : payload.searchTerm, notReload: true }
+      })
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   function* fetchPessoa({payload}) {
     try{
 
-      yield put({ type: types.PESSOA_LOADING });
+      if(!payload.notReload)
+        yield put({ type: types.PESSOA_LOADING });
 
       let params = {   
         page: payload.page || 1,
@@ -134,7 +145,8 @@ import {
       takeLatest(types.ASYNC_CREATE_PESSOA, createPessoa),
       takeLatest(types.ASYNC_UṔDATE_PESSOA, updatePessoa),
       takeLatest(types.ASYNC_UPDATE_PESSOA_ADDRESS, updateAddress),
-      takeLatest(types.ASYNC_UPDATE_PESSOA_PHONE, updatePhone)
+      takeLatest(types.ASYNC_UPDATE_PESSOA_PHONE, updatePhone),
+      takeLatest(types.ASYNC_SEARCH_PESSOA, searchPessoa)
     ]);
   }
   

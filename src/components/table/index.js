@@ -80,8 +80,7 @@ const CustomTable = ({
     }
 
     //let [ checked, setChecked ] = useState(false)
-
-
+    /*
     const verifyCheck = (value) => {
         let array = Object.keys(Object.assign({}, initialValues));
         for(let i = 0; i < array.length; i++) {
@@ -91,7 +90,7 @@ const CustomTable = ({
             }
         }
         return false;
-    }
+    } */
 
     const emptyData = () => {
         return (
@@ -125,12 +124,12 @@ const CustomTable = ({
                     {
                         headers && headers.map ( (item, index) => (
                             <TableCell key={index} className={classes.cell}>
-                                <Typography variant="h6">{item.header}</Typography>
+                                <Typography variant="inherit">{item.header}</Typography>
                             </TableCell>
                         ))
                     }  
                     {(showEdit || showDelete)  && ( <TableCell className={classes.cell}>
-                        <Typography variant="h6"></Typography>
+                        <Typography variant="inherit"></Typography>
                     </TableCell> )} 
                     
 

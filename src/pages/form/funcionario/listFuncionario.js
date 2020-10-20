@@ -20,9 +20,12 @@ const ListFuncionario = ({ loadFuncionario, funcionario, loaded }) => {
     },[]);
 
     const headers =  [
-        { header: "ID",   field: "id"},
+        //{ header: "ID",   field: "id"},
         { header: "Nome", field: "name"},
-        { header: "E-mail", field: "email"},
+        { header: "C.I", field: "ci"},
+        { header: "CPF", field: "cpf"},
+        { header: "Cargo", field: "role"},
+        { header: "Portaria", field: "portaria"},
     ];
 
     if(!loaded){

@@ -12,6 +12,7 @@ import ListFuncionario         from  "../pages/form/funcionario/listFuncionario"
 import createOrEditFuncionario from  "../pages/form/funcionario/createOrEditFuncionario";
 import ListEmpresa             from "../pages/form/empresa/listEmpresa";
 import CreateOrEditEmpresa     from "../pages/form/empresa/createOrEditEmpresa";
+import ListLicitacao           from "../pages/form/licitacao/listLicitacao";
 
 export default function Routes() {
   return (
@@ -67,7 +68,12 @@ export default function Routes() {
           path="/funcionario/edit/:id" 
           headerTitle='Editar Funcionario'
           breadcrumbsConfig={[{label: "funcionario", path: "/funcionario/edit/:id"}]}
-          component={createOrEditFuncionario} /> 
+          component={createOrEditFuncionario} />
+        <PrivateRoute 
+          path="/licitacao" 
+          headerTitle='Cadastro Licitacao'
+          breadcrumbsConfig={[{label: "licitacao", path: "/licitacao"}]}
+          exact component={ListLicitacao} />
 
         <Route path="*" component={Error} />  
       </Switch>

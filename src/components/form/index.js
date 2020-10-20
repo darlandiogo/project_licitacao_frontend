@@ -38,21 +38,18 @@ export const InputWithIcon = React.memo(
     input,
     label,
     margin = "normal",
-    meta: { touched, error },
     controlStyle = {},
     withFormControl = true,
     ...custom
   }) => {
-    const hasError = (error || false) !== false;
 
     if (withFormControl) {
       return (
-        <FormControl margin={margin} error={touched && hasError} fullWidth style={controlStyle}>
+        <FormControl margin={margin} fullWidth style={controlStyle}>
           <TextField
             {...input}
             {...custom}
             label={inputLabel}
-            error={hasError}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -65,7 +62,7 @@ export const InputWithIcon = React.memo(
       );
     }
 
-    return <TextField {...input} {...custom} error={hasError} />;
+    return <TextField {...input} {...custom} />;
   }
 );
 

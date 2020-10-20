@@ -4,18 +4,33 @@ import { bindActionCreators } from "redux";
 import { useForm, Controller } from "react-hook-form";
 import { Grid, FormGroup, Card, CardHeader, CardContent, CardActions, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 
+import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+
 import { Input, PrimaryButton } from '../../../components/form';
 import { updateFuncionario, createFuncionario } from "../../../store/ducks/funcionario";
 
 const FormFuncionario = (props) => {
     
+    let { listPessoa, funcionario, updateFuncionario, createFuncionario } = props;
+    
     const { register, control, handleSubmit } = useForm();
     const onSubmit = data => data.id ? updateFuncionario(data.id, data) : createFuncionario(data);
     
-    let { listPessoa, funcionario, updateFuncionario, createFuncionario } = props;
-    
-    const [value, setValue] = useState(funcionario.pessoa_fisica_id ? funcionario.pessoa_fisica_id : "");
-    const handleChange = (event) => setValue(event.target.value);
+    const [value, setValue] = useState( funcionario.pessoa_fisica_id ? funcionario.pessoa_fisica_id : "");
+    const onChangeValue = (event, values) => {
+        event.preventDefault();
+        if(values){
+            setValue(values.id);
+        }
+    }
+
+    const getPessoa = (id) => { 
+        let _value = listPessoa.find( elem => elem.id == id);
+        if(_value != 'undefined')
+            return _value;
+        return '';
+    }
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -26,21 +41,15 @@ const FormFuncionario = (props) => {
                     <input type="hidden" name="pessoa_fisica_id" value={value} ref={register} />
                     <Grid container spacing={3}>
                         <Grid item xs={12}>
-                            <FormControl style={{width: "100%"}}>
-                                <InputLabel id="select-label">Funcionario</InputLabel>
-                                <Select
-                                name="select_id"
-                                value={value}
-                                onChange={handleChange}
-                                ref={register}
-                                >
-                                {listPessoa && listPessoa.map((elem, index) => (
-                                    <MenuItem key={index} value={elem.id}>
-                                        {elem.name} ({elem.cpf})
-                                    </MenuItem>
-                                ))}
-                                </Select>
-                            </FormControl>  
+                            <Autocomplete
+                                id="combo-box-demo"
+                                options={listPessoa}
+                                value={listPessoa && getPessoa(value)}
+                                onChange={onChangeValue}
+                                getOptionLabel={(elem) => `${elem.name} (${elem.cpf})`}
+                                style={{ width: "100%" }}
+                                renderInput={(params) => <TextField {...params} label="Funcionario" />}
+                            />
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <FormGroup>

@@ -25,6 +25,7 @@ import CameraFrontIcon from '@material-ui/icons/CameraFront';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonIcon from '@material-ui/icons/Person';
 import MailIcon from '@material-ui/icons/Mail';
+import GavelIcon from '@material-ui/icons/Gavel';
 import Link from '@material-ui/core/Link';
 
 import { logoutUser } from '../../store/ducks/login';
@@ -92,6 +93,7 @@ const Layout = ({ logoutUser, children }) => {
                         {[
                             {label: 'Dashboard', path: '/dashboard', icon: <DashboardIcon/> },
                             {label: 'Empresa', path: '/empresa', icon: <BusinessIcon/> },
+                            {label: 'Licitações', path: '/licitacao', icon: <GavelIcon/> },
                             {label: 'Pessoa',  path: '/pessoa', icon: <PersonIcon/>},
                             {label: 'Funcionario',  path: '/funcionario', icon: <CameraFrontIcon/>},
                         ].map((elem, index) => (

@@ -20,9 +20,11 @@ const ListEmpresa = ({ loadEmpresa, empresa, loaded }) => {
     },[]);
 
     const headers =  [
-        { header: "ID",   field: "id"},
-        { header: "Nome", field: "name"},
-        { header: "E-mail", field: "email"},
+        //{ header: "ID",   field: "id"},
+        { header: "CNPJ", field: "cnpj"},
+        { header: "Nome Fantasia", field: "nome_fantasia"},
+        { header: "Razão Social", field: "razao_social"},
+        { header: "Tipo", field: "type"},
     ];
 
     if(!loaded){

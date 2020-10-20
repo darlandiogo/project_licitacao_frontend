@@ -9,6 +9,7 @@ export const types = {
     PESSOA_LOADING: "PESSOA_LOADING",
     ASYNC_UPDATE_PESSOA_ADDRESS: "ASYNC_UPDATE_PESSOA_ADDRESS", 
     ASYNC_UPDATE_PESSOA_PHONE: "ASYNC_UPDATE_PESSOA_PHONE",
+    ASYNC_SEARCH_PESSOA: "ASYNC_SEARCH_PESSOA"
 };
 
 const INITIAL_STATE = {
@@ -36,5 +37,6 @@ export const createPessoa  = (values) => ({ type: types.ASYNC_CREATE_PESSOA , pa
 export const updatePessoa  = (id, values) => ({ type: types.ASYNC_UṔDATE_PESSOA , payload: {id, values}})
 export const updateAddress = (values) => ({ type: types.ASYNC_UPDATE_PESSOA_ADDRESS, payload: values})
 export const updatePhone = (values) => ({ type: types.ASYNC_UPDATE_PESSOA_PHONE, payload: values})
+export const searchPessoa = (searchTerm) => ({ type:types.ASYNC_SEARCH_PESSOA, payload: {searchTerm} })
 export const resetError  = () => ({ type: types.PESSOA_ERROR })
 
