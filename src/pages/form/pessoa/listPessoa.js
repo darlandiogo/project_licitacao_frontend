@@ -23,7 +23,6 @@ const ListPessoa = ({ loadPessoa, searchPessoa, pessoa, loaded }) => {
 
     const [search, setSearch] = React.useState('');
     const handlerSearch = (e) => {
-        console.log(e.target.value);
         searchPessoa(e.target.value);
         setSearch(e.target.value);
     }
@@ -34,9 +33,7 @@ const ListPessoa = ({ loadPessoa, searchPessoa, pessoa, loaded }) => {
         { header: "C.I", field: "ci"},
         { header: "CPF", field: "cpf"},
         { header: "Qualificação", field: "type"},
-    ];
-
-        
+    ];  
 
     if(!loaded){
         return <Loading/>;
@@ -64,7 +61,7 @@ const ListPessoa = ({ loadPessoa, searchPessoa, pessoa, loaded }) => {
                         </Button>
                     </Link>
                 </Box>
-        </Box>   
+            </Box>   
 
             {<CustomTable 
                 headers={headers} 

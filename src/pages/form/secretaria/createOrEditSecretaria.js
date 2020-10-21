@@ -4,14 +4,14 @@ import { bindActionCreators } from "redux";
 import {  useParams } from "react-router-dom";
 
 import Loading from "../../../components/loading";
-import FormDadosEmpresa  from "./formDadosEmpresa";
-import FormRepresentate from "./formRepresentante";
+import FormDadosSecretaria  from "./formDadosSecretaria";
+import FormRepresentate from "../empresa/formRepresentante";
 import FormAddress from "../common/formAddress";
 import FormPhone from "../common/formPhone";
 import { loadEmpresaById, updateAddress, updatePhone, updateRepresentante } from "../../../store/ducks/empresa";
 import { loadListPessoa } from "../../../store/ducks/funcionario";
 
-const CreateOrEditEmpresa = ({ loadEmpresaById, updateAddress, updateRepresentante, loadListPessoa, listPessoa, updatePhone, empresa, loaded, errors }) => {
+const CreateOrEditSecretaria = ({ loadEmpresaById, updateAddress, updateRepresentante, loadListPessoa, listPessoa, updatePhone, empresa, loaded, errors }) => {
     
     let { id } = useParams(); 
     useEffect(() => {
@@ -27,13 +27,14 @@ const CreateOrEditEmpresa = ({ loadEmpresaById, updateAddress, updateRepresentan
 
     return (
         <div>
-            <FormDadosEmpresa empresa={empresa}/>
+            <FormDadosSecretaria empresa={empresa}/>
             <br/>
             <FormAddress updateAddress={updateAddress} address={empresa.address ? empresa.address: empresa}/>
             <br/>
             <FormPhone updatePhone={updatePhone} phones={empresa.phones ? empresa.phones: []}/>
             <br/>
-            <FormRepresentate empresa={empresa} updateRepresentante={updateRepresentante} listPessoa={listPessoa} />
+             <FormRepresentate empresa={empresa} updateRepresentante={updateRepresentante} listPessoa={listPessoa} />
+            
         </div>
     );
 }
@@ -53,4 +54,4 @@ const mapDispatchToProps = (dispatch) =>
 export default connect( 
     mapStateToProps,
     mapDispatchToProps
-)(CreateOrEditEmpresa);
+)(CreateOrEditSecretaria);

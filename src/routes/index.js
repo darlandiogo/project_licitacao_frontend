@@ -13,6 +13,8 @@ import createOrEditFuncionario from  "../pages/form/funcionario/createOrEditFunc
 import ListEmpresa             from "../pages/form/empresa/listEmpresa";
 import CreateOrEditEmpresa     from "../pages/form/empresa/createOrEditEmpresa";
 import ListLicitacao           from "../pages/form/licitacao/listLicitacao";
+import ListSecretaria          from "../pages/form/secretaria/listSecretaria";
+import CreateOrEditSecretaria  from "../pages/form/secretaria/createOrEditSecretaria";
 
 export default function Routes() {
   return (
@@ -34,6 +36,21 @@ export default function Routes() {
           headerTitle='Adicionar Empresa'
           breadcrumbsConfig={[{label: "empresa", path: "/empresa/create"}]}
           component={CreateOrEditEmpresa} /> 
+        <PrivateRoute 
+          path="/secretaria/edit/:id" 
+          headerTitle='Editar Secretaria'
+          breadcrumbsConfig={[{label: "secretaria", path: "/secretaria/edit/:id"}]}
+          component={CreateOrEditSecretaria} />
+          <PrivateRoute 
+          path="/secretaria" 
+          headerTitle='Cadastro Secretaria'
+          breadcrumbsConfig={[{label: "secretaria", path: "/secretaria"}]}
+          exact component={ListSecretaria} /> 
+        <PrivateRoute 
+          path="/secretaria/create" 
+          headerTitle='Adicionar Secretaria'
+          breadcrumbsConfig={[{label: "secretaria", path: "/secretaria/create"}]}
+          component={CreateOrEditSecretaria} /> 
         <PrivateRoute 
           path="/empresa/edit/:id" 
           headerTitle='Editar Empresa'

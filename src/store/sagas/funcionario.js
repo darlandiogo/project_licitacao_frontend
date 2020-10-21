@@ -13,12 +13,23 @@ import {
   import * as apiAddress from '../services/address';
   import * as apiPhone from '../services/phone';
 
-  
+  function* searchFuncionario ({payload}){
+    try {
+      yield put ({ 
+        type: types.ASYNC_LOAD_FUNCIONARIO, 
+        payload: { searchTerm : payload.searchTerm, notReload: true }
+      })
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   function* fetchFuncionario({payload}) {
     try{
 
-      yield put({ type: types.FUNCIONARIO_LOADING });
+      if(!payload.notReload)
+        yield put({ type: types.FUNCIONARIO_LOADING });
 
       let params = {   
         page: payload.page || 1,
@@ -143,6 +154,7 @@ import {
       takeLatest(types.ASYNC_LOAD_FUNCIONARIO_ID, fetchFuncionarioById),
       takeLatest(types.ASYNC_CREATE_FUNCIONARIO, createFuncionario),
       takeLatest(types.ASYNC_UṔDATE_FUNCIONARIO, updateFuncionario),
+      takeLatest(types.ASYNC_SEARCH_FUNCIONARIO, searchFuncionario),
       takeLatest(types.ASYNC_LOAD_LIST_PESSOA, fetchPessoa),
       //takeLatest(types.ASYNC_UPDATE_FUNCIONARIO_ADDRESS, updateAddress),
       //takeLatest(types.ASYNC_UPDATE_FUNCIONARIO_PHONE, updatePhone)

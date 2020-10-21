@@ -15,19 +15,24 @@ import { useForm } from "react-hook-form";
 import { PrimaryButton } from '../../../components/form';
 
 const FormRepresentante = (props) => {
-
-    const [representantes, setRepresentantes] = useState(props.representantes || []);
+    
+    const [representantes, setRepresentantes] = useState(
+        props.empresa && props.empresa.representantes || []);
     const [value,setValue] = useState('Selecione...');
 
+    let pessoa_juridica_id = "";
+    if(props.empresa.pessoa_juridica){
+        pessoa_juridica_id = props.empresa.pessoa_juridica.id;
+    }
+
     const { register, handleSubmit } = useForm();
-    const onSubmit = data => console.log(data);//props.updatePhone(data); 
+    const onSubmit = data => props.updateRepresentante(data); 
 
     const removeRepresentante = (index) => {
         let newList  = representantes.filter((_ ,_index) =>  _index != index)
         setRepresentantes(newList);
     } 
     const addRepresentante = (e) => {
-        console.log('hhe');
         e.preventDefault();
         if(value != ''){
             representantes.push({ ...value });
@@ -53,7 +58,7 @@ const FormRepresentante = (props) => {
                         />
                         <input 
                         type="hidden" 
-                        name={"values["+index+"]"} 
+                        name={"pessoa_fisica["+index+"]"} 
                         value={item.id} ref={register}/>
 
                         <ListItemSecondaryAction>
@@ -75,8 +80,8 @@ const FormRepresentante = (props) => {
                     
                     <input 
                         type="hidden" 
-                        name={"pessoa_id"} 
-                        defaultValue={representantes[0] ? representantes[0].pessoa_id : ""} 
+                        name={"pessoa_juridica_id"} 
+                        defaultValue={pessoa_juridica_id} 
                         ref={register}
                     />
 

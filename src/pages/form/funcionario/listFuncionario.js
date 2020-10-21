@@ -7,10 +7,11 @@ import { Link, useHistory } from 'react-router-dom';
 
 import CustomTable from '../../../components/table';
 import Loading from "../../../components/loading";
+import { InputWithIcon } from '../../../components/form';
 
-import { loadFuncionario } from "../../../store/ducks/funcionario";
+import { loadFuncionario, searchFuncionario  } from "../../../store/ducks/funcionario";
 
-const ListFuncionario = ({ loadFuncionario, funcionario, loaded }) => {
+const ListFuncionario = ({ loadFuncionario, searchFuncionario, funcionario, loaded }) => {
 
     const history = useHistory();
     const loadFuncionarioById = (id) => history.push("funcionario/edit/"+id);
@@ -19,6 +20,11 @@ const ListFuncionario = ({ loadFuncionario, funcionario, loaded }) => {
         loadFuncionario();
     },[]);
 
+     const [search, setSearch] = React.useState('');
+    const handlerSearch = (e) => {
+        searchFuncionario(e.target.value);
+        setSearch(e.target.value);
+    }
     const headers =  [
         //{ header: "ID",   field: "id"},
         { header: "Nome", field: "name"},
@@ -32,16 +38,29 @@ const ListFuncionario = ({ loadFuncionario, funcionario, loaded }) => {
         return <Loading/>;
     }
 
-    console.log(funcionario);
-
     return (
         <Box>
-            <Link to="/funcionario/create" style={{textDecoration:"none", marginBottom: "5%"}}>
-                <Button variant="contained" color="primary">
-                    Adicionar
-                </Button>
-            </Link>
-            <hr/>
+            <Box style={{ display: 'flex', flex: 1, width: '100%' }}>
+                <Box style={{flex:1, textAlign: 'start', marginBottom:20}}>
+                    <InputWithIcon   
+                        name="search_funcionario"
+                        value={search}
+                        type="text"
+                        size="small"
+                        autoComplete="text"
+                        inputLabel="Pesquisar funcionario"
+                        style={{width:"75%"}}
+                        onChange={handlerSearch}
+                    />
+                </Box>
+                <Box style={{flex:1, textAlign: 'end'}}>
+                    <Link to="/funcionario/create" style={{textDecoration:"none", marginBottom: "5%"}}>
+                        <Button variant="contained" color="primary">
+                            Adicionar
+                        </Button>
+                    </Link>
+                </Box>
+            </Box>  
 
             {<CustomTable 
                 headers={headers} 
@@ -65,7 +84,7 @@ const mapStateToProps = ( state ) => {
 };
 
 const mapDispatchToProps = (dispatch) =>
-    bindActionCreators({ loadFuncionario }, dispatch);
+    bindActionCreators({ loadFuncionario, searchFuncionario }, dispatch);
 
 export default connect( 
     mapStateToProps,

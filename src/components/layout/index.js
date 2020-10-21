@@ -23,6 +23,7 @@ import BusinessIcon from '@material-ui/icons/Business';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import CameraFrontIcon from '@material-ui/icons/CameraFront';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import BookmarksIcon from '@material-ui/icons/Bookmarks';
 import PersonIcon from '@material-ui/icons/Person';
 import MailIcon from '@material-ui/icons/Mail';
 import GavelIcon from '@material-ui/icons/Gavel';
@@ -92,6 +93,7 @@ const Layout = ({ logoutUser, children }) => {
                     <List>
                         {[
                             {label: 'Dashboard', path: '/dashboard', icon: <DashboardIcon/> },
+                             {label: 'Secretaria', path: '/secretaria', icon: <BookmarksIcon/> },
                             {label: 'Empresa', path: '/empresa', icon: <BusinessIcon/> },
                             {label: 'Licitações', path: '/licitacao', icon: <GavelIcon/> },
                             {label: 'Pessoa',  path: '/pessoa', icon: <PersonIcon/>},

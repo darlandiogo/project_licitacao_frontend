@@ -5,33 +5,33 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Link, useHistory } from 'react-router-dom';
 
+import { InputWithIcon } from '../../../components/form';
 import CustomTable from '../../../components/table';
 import Loading from "../../../components/loading";
-import { InputWithIcon } from '../../../components/form';
 
-import { loadEmpresa, searchEmpresa } from "../../../store/ducks/empresa";
+import { loadSecretaria, searchSecretaria } from "../../../store/ducks/empresa";
 
-const ListEmpresa = ({ loadEmpresa, searchEmpresa, empresa, loaded }) => {
+const ListSecretaria = ({ loadSecretaria, searchSecretaria, empresa, loaded }) => {
 
     const history = useHistory();
-    const loadEmpresaById = (id) => history.push("empresa/edit/"+id);
+    const loadEmpresaById = (id) => history.push("secretaria/edit/"+id);
 
     useEffect(() => {
-        loadEmpresa();
+        loadSecretaria();
     },[]);
 
     const [search, setSearch] = React.useState('');
     const handlerSearch = (e) => {
-        searchEmpresa(e.target.value);
+        searchSecretaria(e.target.value);
         setSearch(e.target.value);
     }
 
     const headers =  [
         //{ header: "ID",   field: "id"},
+        { header: "Nome da Secretaria", field: "nome_fantasia"},
         { header: "CNPJ", field: "cnpj"},
-        { header: "Nome Fantasia", field: "nome_fantasia"},
-        { header: "Razão Social", field: "razao_social"},
-        { header: "Tipo", field: "type"},
+        //{ header: "Razão Social", field: "razao_social"},
+        //{ header: "Tipo", field: "type"},
     ];
 
     if(!loaded){
@@ -40,7 +40,6 @@ const ListEmpresa = ({ loadEmpresa, searchEmpresa, empresa, loaded }) => {
 
     return (
         <Box>
-
              <Box style={{ display: 'flex', flex: 1, width: '100%' }}>
                 <Box style={{flex:1, textAlign: 'start', marginBottom:20}}>
                     <InputWithIcon   
@@ -49,19 +48,20 @@ const ListEmpresa = ({ loadEmpresa, searchEmpresa, empresa, loaded }) => {
                         type="text"
                         size="small"
                         autoComplete="text"
-                        inputLabel="Pesquisar empresa"
+                        inputLabel="Pesquisar secretaria"
                         style={{width:"75%"}}
                         onChange={handlerSearch}
                     />
                 </Box>
                 <Box style={{flex:1, textAlign: 'end'}}>
-                    <Link to="/empresa/create" style={{textDecoration:"none", marginBottom: "5%"}}>
+                    <Link to="/secretaria/create" style={{textDecoration:"none", marginBottom: "5%"}}>
                         <Button variant="contained" color="primary">
                             Adicionar
                         </Button>
                     </Link>
                 </Box>
             </Box> 
+
 
             {<CustomTable 
                 headers={headers} 
@@ -70,7 +70,7 @@ const ListEmpresa = ({ loadEmpresa, searchEmpresa, empresa, loaded }) => {
                 handleEdit={(id) => loadEmpresaById(id)}
                 handleDelete={() => {}}
                 data={empresa}
-                parentHandlePagination={(page, perPage) => loadEmpresa(page,perPage)}
+                parentHandlePagination={(page, perPage) => loadSecretaria(page,perPage)}
             />}
         </Box>
     );
@@ -85,10 +85,10 @@ const mapStateToProps = ( state ) => {
 };
 
 const mapDispatchToProps = (dispatch) =>
-    bindActionCreators({ loadEmpresa, searchEmpresa }, dispatch);
+    bindActionCreators({ loadSecretaria, searchSecretaria }, dispatch);
 
 export default connect( 
     mapStateToProps,
     mapDispatchToProps
-)(ListEmpresa);
+)(ListSecretaria);
   
