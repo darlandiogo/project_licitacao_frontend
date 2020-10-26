@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import {  useParams } from "react-router-dom";
@@ -17,7 +17,7 @@ const CreateOrEditFuncionario = ({ loadFuncionarioById, loadListPessoa, listPess
            loadFuncionarioById(id);
         }
         loadListPessoa();
-    },[])
+    },[loadFuncionarioById, loadListPessoa, id])
 
     if(!loaded){
         return <Loading/>;

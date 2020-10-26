@@ -11,11 +11,9 @@ import { createEmpresa, updateEmpresa } from '../../../store/ducks/empresa';
 const FormDadosSecretaria = (props) => {
 
     let { id, name, email } = props.empresa;
-    let cnpj, razao_social, type = "";
+    let cnpj = "";
     if(props.empresa.pessoa_juridica){
         cnpj = props.empresa.pessoa_juridica.cnpj;
-        razao_social = props.empresa.pessoa_juridica.razao_social;
-        type = props.empresa.pessoa_juridica.type;
     }
     
     const { register, control, handleSubmit } = useForm();

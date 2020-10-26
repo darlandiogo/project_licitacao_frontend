@@ -1,5 +1,5 @@
 import React from  'react';
-import { Container, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 
 import './style.css';
 

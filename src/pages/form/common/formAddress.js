@@ -1,14 +1,11 @@
 import React from 'react';
 import { FormGroup, Card, CardHeader, CardContent, CardActions, Grid } from '@material-ui/core';
 import { useForm, Controller } from "react-hook-form";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-
 import { Input, PrimaryButton } from '../../../components/form';
 
 const FormAddress =  (props) => {
 
-    let { id, pessoa_id, address, number, complement, postal_code, neighborhood, city, state } = props.address;
+    let { pessoa_id, address, number, complement, postal_code, neighborhood, city, state } = props.address;
     
     const { register, control, handleSubmit } = useForm();
     const onSubmit = data => props.updateAddress(data);

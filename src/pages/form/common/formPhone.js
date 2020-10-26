@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect} from 'react';
+import React, {useState, useCallback} from 'react';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
@@ -21,12 +21,12 @@ const FormPhone = (props) => {
     const onSubmit = data => props.updatePhone(data); 
 
     const removeNumber = (index) => {
-        let newList  = phones.filter((_ ,_index) =>  _index != index)
+        let newList  = phones.filter((_ ,_index) =>  _index !== index)
         setPhones(newList);
     } 
     const addNumber = (e) => {
         e.preventDefault();
-        if(number != ''){
+        if(number !== ''){
             phones.push({ number : number });
             setNumber('');
         } 

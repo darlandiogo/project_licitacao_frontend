@@ -19,7 +19,7 @@ const CreateOrEditSecretaria = ({ loadEmpresaById, updateAddress, updateRepresen
            loadEmpresaById(id);
         }
         loadListPessoa();
-    },[])
+    },[loadEmpresaById,loadListPessoa, id])
 
     if(!loaded){
         return <Loading/>;

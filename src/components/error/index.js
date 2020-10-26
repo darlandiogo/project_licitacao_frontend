@@ -3,7 +3,6 @@ import React from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
-import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 
 import { makeStyles } from '@material-ui/core/styles';

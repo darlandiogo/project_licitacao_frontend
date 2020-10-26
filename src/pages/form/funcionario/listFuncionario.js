@@ -18,7 +18,7 @@ const ListFuncionario = ({ loadFuncionario, searchFuncionario, funcionario, load
 
     useEffect(() => {
         loadFuncionario();
-    },[]);
+    },[loadFuncionario]);
 
      const [search, setSearch] = React.useState('');
     const handlerSearch = (e) => {

@@ -4,6 +4,7 @@ import LoginSaga  from './login';
 import PessoaSaga from './pessoa';
 import FuncionarioSaga from './funcionario';
 import EmpresaSaga from './empresa';
+import LicitacaoSaga from './licitacao';
 
 export default function* rootSaga() {
   yield all([
@@ -11,6 +12,7 @@ export default function* rootSaga() {
     PessoaSaga(), 
     FuncionarioSaga(),
     EmpresaSaga(),
+    LicitacaoSaga(),
   ]);
   
 }

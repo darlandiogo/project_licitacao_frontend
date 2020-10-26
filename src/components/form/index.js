@@ -17,7 +17,7 @@ import SearchIcon from '@material-ui/icons/Search';
 
 import Button from "@material-ui/core/Button";
 
-export const Input = React.memo( ({ input, secureTextEntry = false, error, ...custom }) => {
+export const Input = React.memo( ({ input, type = "text", secureTextEntry = false, error, ...custom }) => {
     
     const hasError = (error || false) !== false;
     return (
@@ -25,7 +25,7 @@ export const Input = React.memo( ({ input, secureTextEntry = false, error, ...cu
           {...input} 
           {...custom}
           style={{ marginTop: "1%", marginBottom: "1%"}}
-          type={secureTextEntry? "password" : "text"} 
+          type={secureTextEntry? "password" : type} 
           error={hasError} 
         />
     );

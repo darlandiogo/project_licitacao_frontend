@@ -3,15 +3,13 @@ import {
     takeLatest,
     put,
     call,
-    select
   } from "redux-saga/effects";
 
   import { types } from "../ducks/funcionario"; 
   import { types as typesError } from "../ducks/error";
   import { types as typesTable } from '../ducks/table';
   import * as api from '../services/funcionario';
-  import * as apiAddress from '../services/address';
-  import * as apiPhone from '../services/phone';
+
 
   function* searchFuncionario ({payload}){
     try {
@@ -47,7 +45,7 @@ import {
     }
     catch(error){
       //console.log({error})
-      if(error.response && error.response.status == 401){
+      if(error.response && error.response.status === 401){
         yield put({ type: typesError.ERROR, payload: [] })
       }
       else { //(error.message){
@@ -106,58 +104,15 @@ import {
       console.log(error);
     }
   }
-
-  /*
-  function* updateAddress({payload}) {
-    try {
-      yield put({ type: types.FUNCIONARIO_LOADING });
-      if(!payload.pessoa_id){
-        payload.pessoa_id = yield select (state => state.pessoa.data.id);
-      }
-
-      let response = yield call(apiAddress.updateAddress, payload);
-      let pessoa = yield select (state => state.pessoa.data);
-      pessoa.address = response.data;
-
-      yield put({ type: types.LOAD_FUNCIONARIO, payload: pessoa});
-    
-    } 
-    catch (error) {
-      console.log(error);
-    }
-  }
-
-  function* updatePhone({payload}) {
-    try {
-      yield put({ type: types.FUNCIONARIO_LOADING });
-      if(!payload.pessoa_id){
-        payload.pessoa_id = yield select (state => state.pessoa.data.id);
-      }
-
-      console.log(payload);
-
-      let response = yield call(apiPhone.updatePhone, payload);
-      let pessoa = yield select (state => state.pessoa.data);
-      pessoa.phones = response.data;
-
-      yield put({ type: types.LOAD_FUNCIONARIO, payload: pessoa});
-    
-    } 
-    catch (error) {
-      console.log(error);
-    }
-  } */
   
   export default function* funcionarioSaga() {
     yield all([
       takeLatest(types.ASYNC_LOAD_FUNCIONARIO, fetchFuncionario),
       takeLatest(types.ASYNC_LOAD_FUNCIONARIO_ID, fetchFuncionarioById),
       takeLatest(types.ASYNC_CREATE_FUNCIONARIO, createFuncionario),
-      takeLatest(types.ASYNC_UṔDATE_FUNCIONARIO, updateFuncionario),
+      takeLatest(types.ASYNC_UPDATE_FUNCIONARIO, updateFuncionario),
       takeLatest(types.ASYNC_SEARCH_FUNCIONARIO, searchFuncionario),
       takeLatest(types.ASYNC_LOAD_LIST_PESSOA, fetchPessoa),
-      //takeLatest(types.ASYNC_UPDATE_FUNCIONARIO_ADDRESS, updateAddress),
-      //takeLatest(types.ASYNC_UPDATE_FUNCIONARIO_PHONE, updatePhone)
     ]);
   }
   

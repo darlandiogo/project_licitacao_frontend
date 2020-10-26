@@ -50,7 +50,7 @@ import {
     }
     catch(error){
       //console.log({error})
-      if(error.response && error.response.status == 401){
+      if(error.response && error.response.status === 401){
         yield put({ type: typesError.ERROR, payload: [] })
       }
       else { //(error.message){
@@ -143,7 +143,7 @@ import {
       takeLatest(types.ASYNC_LOAD_PESSOA, fetchPessoa),
       takeLatest(types.ASYNC_LOAD_PESSOA_ID, fetchPessoaById),
       takeLatest(types.ASYNC_CREATE_PESSOA, createPessoa),
-      takeLatest(types.ASYNC_UṔDATE_PESSOA, updatePessoa),
+      takeLatest(types.ASYNC_UPDATE_PESSOA, updatePessoa),
       takeLatest(types.ASYNC_UPDATE_PESSOA_ADDRESS, updateAddress),
       takeLatest(types.ASYNC_UPDATE_PESSOA_PHONE, updatePhone),
       takeLatest(types.ASYNC_SEARCH_PESSOA, searchPessoa)

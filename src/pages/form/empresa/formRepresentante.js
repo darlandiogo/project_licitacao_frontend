@@ -16,9 +16,10 @@ import { PrimaryButton } from '../../../components/form';
 
 const FormRepresentante = (props) => {
     
-    const [representantes, setRepresentantes] = useState(
-        props.empresa && props.empresa.representantes || []);
-    const [value,setValue] = useState('Selecione...');
+    const [representantes, setRepresentantes] = useState(props.empresa && props.empresa.representantes);
+    const [value,setValue] = useState('');
+
+    let _ref = React.createRef();
 
     let pessoa_juridica_id = "";
     if(props.empresa.pessoa_juridica){
@@ -29,14 +30,15 @@ const FormRepresentante = (props) => {
     const onSubmit = data => props.updateRepresentante(data); 
 
     const removeRepresentante = (index) => {
-        let newList  = representantes.filter((_ ,_index) =>  _index != index)
+        let newList  = representantes.filter((_ ,_index) =>  _index !== index)
         setRepresentantes(newList);
     } 
     const addRepresentante = (e) => {
         e.preventDefault();
-        if(value != ''){
+        if(value !== ''){
             representantes.push({ ...value });
             setValue('');
+            _ref.current.getElementsByClassName('MuiAutocomplete-clearIndicator')[0].click();
         } 
     }
 
@@ -90,6 +92,7 @@ const FormRepresentante = (props) => {
                             <FormGroup>
                             <Autocomplete
                                 id="combo-box-demo"
+                                ref={_ref}
                                 options={props.listPessoa}
                                 onChange={onChangeValue}
                                 getOptionLabel={(elem) => `${elem.name} (${elem.cpf})`}

@@ -25,7 +25,6 @@ import CameraFrontIcon from '@material-ui/icons/CameraFront';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import BookmarksIcon from '@material-ui/icons/Bookmarks';
 import PersonIcon from '@material-ui/icons/Person';
-import MailIcon from '@material-ui/icons/Mail';
 import GavelIcon from '@material-ui/icons/Gavel';
 import Link from '@material-ui/core/Link';
 

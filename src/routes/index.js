@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Switch, Route,  Link } from "react-router-dom";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import PrivateRoute from "./private_route";
 
 // pages
@@ -15,6 +15,7 @@ import CreateOrEditEmpresa     from "../pages/form/empresa/createOrEditEmpresa";
 import ListLicitacao           from "../pages/form/licitacao/listLicitacao";
 import ListSecretaria          from "../pages/form/secretaria/listSecretaria";
 import CreateOrEditSecretaria  from "../pages/form/secretaria/createOrEditSecretaria";
+import CreateOrEditLicitacao   from "../pages/form/licitacao/createOrEditLicitacao";
 
 export default function Routes() {
   return (
@@ -91,6 +92,16 @@ export default function Routes() {
           headerTitle='Cadastro Licitacao'
           breadcrumbsConfig={[{label: "licitacao", path: "/licitacao"}]}
           exact component={ListLicitacao} />
+        <PrivateRoute 
+          path="/licitacao/create" 
+          headerTitle='Adicionar Licitacao'
+          breadcrumbsConfig={[{label: "licitacao", path: "/licitacao/create"}]}
+          component={CreateOrEditLicitacao} /> 
+        <PrivateRoute 
+          path="/licitacao/edit/:id" 
+          headerTitle='Editar Licitacao'
+          breadcrumbsConfig={[{label: "licitacao", path: "/licitacao/edit/:id"}]}
+          component={CreateOrEditLicitacao} />
 
         <Route path="*" component={Error} />  
       </Switch>

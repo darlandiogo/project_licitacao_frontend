@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Box, Button } from '@material-ui/core';
-import { useForm, Controller } from "react-hook-form";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Link, useHistory } from 'react-router-dom';
@@ -13,13 +12,12 @@ import { loadPessoa, searchPessoa } from "../../../store/ducks/pessoa";
 const ListPessoa = ({ loadPessoa, searchPessoa, pessoa, loaded }) => {
 
     const history = useHistory();
-    const {  control } = useForm();
     const loadPessoaById = (id) => history.push("pessoa/edit/"+id);
     
 
     useEffect(() => {
         loadPessoa();
-    },[]);
+    },[loadPessoa]);
 
     const [search, setSearch] = React.useState('');
     const handlerSearch = (e) => {

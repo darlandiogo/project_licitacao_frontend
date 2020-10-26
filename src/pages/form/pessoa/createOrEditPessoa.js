@@ -16,7 +16,7 @@ const CreateOrEditPessoa = ({ loadPessoaById, updateAddress, updatePhone, pessoa
         if(id){
            loadPessoaById(id);
         }
-    },[])
+    },[loadPessoaById, id])
 
     if(!loaded){
         return <Loading/>;

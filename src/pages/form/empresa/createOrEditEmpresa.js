@@ -19,7 +19,7 @@ const CreateOrEditEmpresa = ({ loadEmpresaById, updateAddress, updateRepresentan
            loadEmpresaById(id);
         }
         loadListPessoa();
-    },[])
+    },[loadListPessoa, loadEmpresaById, id])
 
     if(!loaded){
         return <Loading/>;

@@ -87,7 +87,7 @@ import {
     }
     catch(error){
       //console.log({error})
-      if(error.response && error.response.status == 401){
+      if(error.response && error.response.status === 401){
         yield put({ type: typesError.ERROR, payload: [] })
       }
       else { //(error.message){

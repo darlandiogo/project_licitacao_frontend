@@ -18,7 +18,7 @@ const ListEmpresa = ({ loadEmpresa, searchEmpresa, empresa, loaded }) => {
 
     useEffect(() => {
         loadEmpresa();
-    },[]);
+    },[loadEmpresa]);
 
     const [search, setSearch] = React.useState('');
     const handlerSearch = (e) => {

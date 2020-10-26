@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { useForm, Controller } from "react-hook-form";
-import { Grid, FormGroup, Card, CardHeader, CardContent, CardActions, FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
+import { Grid, FormGroup, Card, CardHeader, CardContent, CardActions} from '@material-ui/core';
 
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
@@ -26,8 +26,8 @@ const FormFuncionario = (props) => {
     }
 
     const getPessoa = (id) => { 
-        let _value = listPessoa.find( elem => elem.id == id);
-        if(_value != 'undefined')
+        let _value = listPessoa.find( elem => elem.id === id);
+        if(_value !== 'undefined')
             return _value;
         return '';
     }
