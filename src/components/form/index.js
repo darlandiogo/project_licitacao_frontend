@@ -96,50 +96,43 @@ export const PrimaryButton = React.memo(
 );
 
 
-export const checkBoxInput = React.memo(
+export const CheckBoxInput = React.memo(
   ({
 
     label,
-    style,
     margin = "normal",
     fontSize = {fontSize:14},
     size="small",
     color="primary",
     labelPlacement="end",
-    className,
-    meta: { touched, error },
     withFormControl = true,
     checked = false,
     input,
+    value,
+    handleChange,
 
   }) => {
 
-    const hasError = (error || false) !== false;
-
     if (withFormControl) {
       return (
-        <FormControlLabel 
+        <FormControlLabel
         margin={margin} 
         size={size} 
         label={<span style={fontSize}>{label}</span>}
-        //error={touched && hasError} 
         labelPlacement={labelPlacement}
           control={<Checkbox
             {...input}
             size={size}
             color={color}
-            className={className}
-            //error={hasError}
-            value={input.value}
-            //defaultValue={ checked || (input.value ? true : false ) }
+            onChange={handleChange}
+            value={value}
             defaultChecked={checked}
-            onChange={input.onChange}
           />}>
         </FormControlLabel>
       );
     }
 
-   return <Checkbox {...input} error={hasError} />;
+   return <Checkbox {...input} />;
 
   }
 );

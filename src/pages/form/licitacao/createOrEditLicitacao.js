@@ -9,7 +9,7 @@ import { loadSecretaria } from "../../../store/ducks/empresa";
 import Loading from "../../../components/loading";
 import FormLicitacao from "./formLicitacao";
 
-const CreateOrEditLicitacao =  ({ loadLicitacaoById, selectOptions, listSelectOptions, loadSecretaria,  listSecretaria, licitacao, loaded, errors }) => {
+const CreateOrEditLicitacao =  ({ loadLicitacaoById, selectOptions, listSelectOptions, loadSecretaria,  listSecretaria, licitacao, loaded, loaded2, errors  }) => {
     
     let { id } = useParams();  
     
@@ -21,7 +21,7 @@ const CreateOrEditLicitacao =  ({ loadLicitacaoById, selectOptions, listSelectOp
         selectOptions();
     },[loadLicitacaoById, id, loadSecretaria, selectOptions])
 
-    if(!loaded){
+    if(!loaded || !loaded2){
         return <Loading/>;
     }
 
@@ -39,8 +39,9 @@ const mapStateToProps = ( state ) => {
         errors: state.licitacao.errors || [],
         licitacao: state.licitacao.data,
         listSelectOptions : state.licitacao.selectOptions || [],
-        listSecretaria: state.empresa.data,
-        loaded: state.licitacao.loaded
+        listSecretaria: state.empresa.data || [],
+        loaded: state.licitacao.loaded,
+        loaded2: state.empresa.loaded
     };
 };
 

@@ -1,17 +1,18 @@
-import React from 'react';
+import React, { useState, useCallback} from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { useForm, Controller } from "react-hook-form";
-import { Grid, FormControl, FormGroup, Card, CardHeader, CardContent, CardActions, InputLabel, Select, MenuItem } from '@material-ui/core';
-import { Input, PrimaryButton } from '../../../components/form';
+import { 
+    Grid, FormControl, FormGroup, Card, CardHeader, CardContent, 
+    CardActions, InputLabel, Select, MenuItem 
+} from '@material-ui/core';
+
+import { Input, CheckBoxInput, PrimaryButton } from '../../../components/form';
 import { updateLicitacao, createLicitacao } from "../../../store/ducks/licitacao";
 
 const FormLicitacao =  (props) => {
 
-    let {
-        modalities, types, forms, regimes
-    } = props.listSelectOptions;
-
+    let { modalities, types, forms, regimes } = props.listSelectOptions;
     let { 
         id, process_number, process_date, bidding_number, 
         licitacao_modality,licitacao_type, licitacao_form, 
@@ -23,7 +24,47 @@ const FormLicitacao =  (props) => {
     } = props.licitacao;
 
     const { register, control, handleSubmit } = useForm();
-    const onSubmit = data => data.id ? props.updateLicitacao(data.id, data) : props.createLicitacao(data);
+    const onSubmit = data => { 
+        let result = { ...data, sector_id: check.join(",") }  
+        result.id ? props.updateLicitacao(result.id, result) : props.createLicitacao(result); 
+    }
+    const [check, ] = useState(sector_id ? sector_id.split(",").map(Number) : []);
+    
+    const _handleChange = (e) => {
+        if(e.checked)
+        {   
+            check.push(parseInt(e.value));
+        }
+        else
+        {    
+            let newList  = check.filter((value ,_index)  => value !== parseInt(e.value))
+            check.splice(0, check.length);
+            check.push(...newList)
+        }
+        console.log(check);
+    }
+
+    const SetoresInteresados = useCallback(() => {
+        return (
+            <>
+                { props.listSecretaria && props.listSecretaria.map((elem, index) => (
+                    <FormGroup key={index}>
+                        <Controller
+                        key={index}
+                        name={"sector["+index+"]"}
+                        label={elem.nome_fantasia}
+                        as={CheckBoxInput}
+                        control={control}
+                        defaultValue={elem.id}
+                        value={elem.id}
+                        checked={Array.isArray(check) ? check.includes(elem.id): false}
+                        handleChange={ (e) =>_handleChange(e.target)}
+                        />
+                    </FormGroup>
+                ))}
+            </>
+        );
+    }, [check]);
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -74,10 +115,7 @@ const FormLicitacao =  (props) => {
                                 <InputLabel >Modalidade</InputLabel>
                                 <Controller
                                     required
-                                    as={<Select
-                                        onChange={e => props.onChange(e.target.value)}
-                                        value={props.value}
-                                        >
+                                    as={<Select>
                                         { modalities && modalities.map((elem, index)=>(
                                             <MenuItem key={index} value={elem.id}>{elem.name}</MenuItem>
                                         ))}
@@ -95,10 +133,7 @@ const FormLicitacao =  (props) => {
                                 <InputLabel >Tipo</InputLabel>
                                 <Controller
                                     required
-                                    as={<Select
-                                        onChange={e => props.onChange(e.target.value)}
-                                        value={props.value}
-                                        >
+                                    as={<Select>
                                         { types && types.map((elem, index)=>(
                                             <MenuItem key={index} value={elem.id}>{elem.name}</MenuItem>
                                         ))}
@@ -115,10 +150,7 @@ const FormLicitacao =  (props) => {
                                     <InputLabel >Forma</InputLabel>
                                     <Controller
                                         required
-                                        as={<Select
-                                            onChange={e => props.onChange(e.target.value)}
-                                            value={props.value}
-                                            >
+                                        as={<Select>
                                             { forms && forms.map((elem, index)=>(
                                                 <MenuItem key={index} value={elem.id}>{elem.name}</MenuItem>
                                             ))}
@@ -135,10 +167,7 @@ const FormLicitacao =  (props) => {
                                 <InputLabel >Tipo</InputLabel>
                                 <Controller
                                     required
-                                    as={<Select
-                                        onChange={e => props.onChange(e.target.value)}
-                                        value={props.value}
-                                        >
+                                    as={<Select>
                                         { regimes && regimes.map((elem, index)=>(
                                             <MenuItem key={index} value={elem.id}>{elem.name}</MenuItem>
                                         ))}
@@ -337,17 +366,12 @@ const FormLicitacao =  (props) => {
                                 />
                             </FormGroup>
                         </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <FormGroup>
-                                <Controller
-                                    required
-                                    as={Input}
-                                    control={control}
-                                    label="Setores intersados"
-                                    name="sector_id"
-                                    defaultValue={sector_id ? sector_id: ""}
-                                />
+                        <Grid item xs={12} sm={12}>
+                            <InputLabel>Setores interesados</InputLabel>
+                            <FormGroup>   
+                                {SetoresInteresados()}
                             </FormGroup>
+                            
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <FormGroup>
