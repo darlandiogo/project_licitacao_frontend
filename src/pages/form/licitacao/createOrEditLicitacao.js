@@ -8,6 +8,7 @@ import { loadSecretaria } from "../../../store/ducks/empresa";
 
 import Loading from "../../../components/loading";
 import FormLicitacao from "./formLicitacao";
+import ListLicitacaoItem from "./listLicitacaoItem";
 
 const CreateOrEditLicitacao =  ({ loadLicitacaoById, selectOptions, listSelectOptions, loadSecretaria,  listSecretaria, licitacao, loaded, loaded2, errors  }) => {
     
@@ -26,11 +27,15 @@ const CreateOrEditLicitacao =  ({ loadLicitacaoById, selectOptions, listSelectOp
     }
 
     return (
+        <>
         <FormLicitacao 
             licitacao={licitacao}
             listSecretaria={listSecretaria}
             listSelectOptions={listSelectOptions}
          />
+         <br/>
+         <ListLicitacaoItem/>
+        </>
     );
 }
 

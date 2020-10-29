@@ -12,7 +12,7 @@ import { updateLicitacao, createLicitacao } from "../../../store/ducks/licitacao
 
 const FormLicitacao =  (props) => {
 
-    let { modalities, types, forms, regimes } = props.listSelectOptions;
+    let { modalities, types, forms, regimes, status } = props.listSelectOptions;
     let { 
         id, process_number, process_date, bidding_number, 
         licitacao_modality,licitacao_type, licitacao_form, 
@@ -20,7 +20,7 @@ const FormLicitacao =  (props) => {
         purpose_contract, way_execution, validity_contract,
         deadline_contract, general_considerations, bidding_organ,
         emiter_name, emiter_office, disbursement_schedule, edital_date, 
-        datetime_open, status_process, sector_id, value,
+        datetime_open, licitacao_status, sector_id, value,
     } = props.licitacao;
 
     const { register, control, handleSubmit } = useForm();
@@ -345,7 +345,7 @@ const FormLicitacao =  (props) => {
                             <FormGroup>
                                 <Controller
                                     required
-                                    type="datetime"
+                                    type="datetime-local"
                                     as={Input}
                                     control={control}
                                     label="Date e hora de abertura"
@@ -356,14 +356,21 @@ const FormLicitacao =  (props) => {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <FormGroup>
+                                <FormControl style={{width: "100%"}}>
+                                <InputLabel >Status do processo</InputLabel>
                                 <Controller
                                     required
-                                    as={Input}
+                                    as={<Select>
+                                        { status && status.map((elem, index)=>(
+                                            <MenuItem key={index} value={elem.id}>{elem.name}</MenuItem>
+                                        ))}
+                                        </Select>
+                                    }
+                                    name="status"
                                     control={control}
-                                    label="Status do processo"
-                                    name="status_process"
-                                    defaultValue={ status_process ? status_process: ""}
+                                    defaultValue={licitacao_status? licitacao_status.id: ""}
                                 />
+                            </FormControl>
                             </FormGroup>
                         </Grid>
                         <Grid item xs={12} sm={12}>

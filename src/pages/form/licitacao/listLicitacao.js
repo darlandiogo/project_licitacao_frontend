@@ -26,7 +26,6 @@ const ListLicitacao = ({ loadLicitacao, searchLicitacao, licitacao, loaded }) =>
     }
 
     const headers =  [
-        //{ header: "ID",   field: "id"},
         { header: "Número", field: "process_number"},
         { header: "Numero do Proc. Adm.", field: "bidding_number"},
         { header: "Data do Proc. Adm.", field: "process_date"},

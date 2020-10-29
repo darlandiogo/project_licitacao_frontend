@@ -54,7 +54,7 @@ const CustomTable = ({
     showCheckbox,
     //handleCheckbox, 
     data,
-    initialValues,
+    //initialValues,
     resetTableState, 
     currentPage, 
     perPage, 
