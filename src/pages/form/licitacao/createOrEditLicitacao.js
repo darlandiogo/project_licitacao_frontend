@@ -28,13 +28,13 @@ const CreateOrEditLicitacao =  ({ loadLicitacaoById, selectOptions, listSelectOp
 
     return (
         <>
-        <FormLicitacao 
-            licitacao={licitacao}
-            listSecretaria={listSecretaria}
-            listSelectOptions={listSelectOptions}
-         />
-         <br/>
-         <ListLicitacaoItem/>
+            <FormLicitacao 
+                licitacao={licitacao}
+                listSecretaria={listSecretaria}
+                listSelectOptions={listSelectOptions}
+            />
+            <br/>
+            { licitacao && licitacao.id ? (<ListLicitacaoItem/>) : (<> </>)}
         </>
     );
 }

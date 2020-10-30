@@ -66,7 +66,7 @@ import {
       
       let response = yield call(api.fetchItemById, payload);
 
-      yield put({ type: types.LOAD_ITEM, payload: response.data });
+      yield put({ type: types.LOAD_ITEM_ID, payload: response.data });
 
     }
     catch(error){
@@ -78,8 +78,16 @@ import {
   function* createItem ({ payload }) {
     try {
       yield put({ type: types.ITEM_LOADING });
-      let response = yield call(api.createItem, payload);
-      yield put({ type: types.LOAD_ITEM, payload: response.data });
+      //let response = 
+      yield call(api.createItem, payload);
+     // yield put({ type: types.LOAD_ITEM, payload: response.data });
+      if(payload.type === 'licitacao'){
+        yield put ({ 
+          type: types.ASYNC_LOAD_ITEM_LICITACAO, 
+          payload: { searchTerm : "", notReload: true }
+        })
+      }
+      yield put({ type: "SET_DIALOG", payload: false});
       
     } 
     catch (error) {
@@ -91,8 +99,18 @@ import {
   function* updateItem({payload}){
     try {
       yield put({ type: types.ITEM_LOADING });
-      let response = yield call(api.updateItem, payload.id, payload.values);
-      yield put({ type: types.LOAD_ITEM, payload: response.data });
+
+      console.log(payload);
+      //let response = 
+      yield call(api.updateItem, payload.id, payload.values);
+      //yield put({ type: types.LOAD_ITEM, payload: response.data });
+      if(payload.values.type === 'licitacao'){
+        yield put ({ 
+          type: types.ASYNC_LOAD_ITEM_LICITACAO, 
+          payload: { searchTerm : "", notReload: true }
+        })
+      }
+      yield put({ type: "SET_DIALOG", payload: false});
     } 
     catch (error) {
       console.log(error);

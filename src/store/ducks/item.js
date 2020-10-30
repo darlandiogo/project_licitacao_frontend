@@ -2,6 +2,8 @@ export const types = {
     ASYNC_LOAD_ITEM_LICITACAO: "ASYNC_LOAD_ITEM_LICITACAO",
     ASYNC_SEARCH_ITEM_LICITACAO: "ASYNC_SEARCH_ITEM_LICITACAO",
     LOAD_ITEM: "LOAD_ITEM",
+    RESET_ITEM_ID:  "RESET_ITEM_ID",
+    LOAD_ITEM_ID: "LOAD_ITEM_ID",
     ASYNC_LOAD_ITEM_ID: "ASYNC_LOAD_ITEM_ID",
     ASYNC_CREATE_ITEM: "ASYNC_CREATE_ITEM", 
     ASYNC_UPDATE_ITEM: "ASYNC_UPDATE_ITEM", 
@@ -13,12 +15,17 @@ const INITIAL_STATE = {
     loaded: false,
     errors: null,
     data: null,
+    elem: null,
 };
 
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case types.LOAD_ITEM:
             return { ...state, loaded: true, data: action.payload };
+        case types.LOAD_ITEM_ID:
+            return { ...state, loaded: true, elem: action.payload };
+        case types.RESET_ITEM_ID:
+            return { ...state, elem: null };
         case types.ITEM_ERROR:
             return { ...state, errors: action.payload };
         case types.ITEM_LOADING:
@@ -33,5 +40,6 @@ export const loadItemLicitacao = (page, perPage) => ({ type: types.ASYNC_LOAD_IT
 export const loadItemById = ( id ) => ({ type: types.ASYNC_LOAD_ITEM_ID, payload: id})
 export const createItem  = (values) => ({ type: types.ASYNC_CREATE_ITEM , payload: values})
 export const updateItem  = (id, values) => ({ type: types.ASYNC_UPDATE_ITEM , payload: {id, values}})
+export const resetItem  = () => ({ type: types.RESET_ITEM_ID })
 export const resetError  = () => ({ type: types.ITEM_ERROR })
 

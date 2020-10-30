@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Box, Button,  Card, CardHeader, CardContent, CardActions } from '@material-ui/core';
+import { Box, Button, Fab,  Card, CardHeader, CardContent, CardActions } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -8,13 +8,22 @@ import { useHistory } from 'react-router-dom';
 import CustomTable from '../../../components/table';
 import { InputWithIcon } from '../../../components/form';
 import Loading from "../../../components/loading";
+import CreateOrEditDialog from "../common/item/createOrEditDialog";
 import { loadItemLicitacao, searchItemLicitacao } from "../../../store/ducks/item";
+import { setDialog } from "../../../store/ducks/dialog";
+import { loadItemById, resetItem } from "../../../store/ducks/item"; 
 
-const ListLicitacaoItem = ({ loadItemLicitacao, searchItemLicitacao, item, loaded }) => {
+const ListLicitacaoItem = ({ loadItemLicitacao, searchItemLicitacao, loadItemById, resetItem, setDialog, id, item, loaded }) => {
 
     const history = useHistory();
-    const loadItemById = (id) => console.log(id); //history.push("item/edit/"+id);
-    const addItem = (e) => console.log("add");
+    const _loadItemById = (id) => { 
+        loadItemById(id);
+        setDialog(true);
+    }
+    const addItem = (e) => {
+        resetItem();
+        setDialog(true);
+    }
 
     useEffect(() => {
         loadItemLicitacao();
@@ -60,9 +69,9 @@ const ListLicitacaoItem = ({ loadItemLicitacao, searchItemLicitacao, item, loade
                             />
                         </Box>
                         <Box style={{flex:1, textAlign: 'end'}}>
-                                <Button onClick={addItem} variant="contained" color="primary">
+                                <Fab onClick={addItem} color="primary">
                                 <AddIcon/>
-                                </Button>
+                                </Fab>
                         </Box>
                     </Box>   
 
@@ -70,11 +79,13 @@ const ListLicitacaoItem = ({ loadItemLicitacao, searchItemLicitacao, item, loade
                         headers={headers} 
                         showEdit={true}
                         showDelete={true}
-                        handleEdit={(id) => loadItemById(id)}
+                        handleEdit={(id) => _loadItemById(id)}
                         handleDelete={() => {}}
                         data={item}
                         parentHandlePagination={(page, perPage) => loadItemLicitacao(page, perPage)}
                     />}
+
+                    < CreateOrEditDialog type="licitacao" type_id={id}/>
                 </Box>
             </CardContent>
             <CardActions>
@@ -88,12 +99,13 @@ const mapStateToProps = ( state ) => {
     return {
         errors: state.item.errors || [],
         item: state.item.data || [],
-        loaded: state.item.loaded
+        loaded: state.item.loaded,
+        id: state.licitacao.data.id || "",
     };
 };
 
 const mapDispatchToProps = (dispatch) =>
-    bindActionCreators({ loadItemLicitacao, searchItemLicitacao }, dispatch);
+    bindActionCreators({ loadItemLicitacao, searchItemLicitacao, setDialog, loadItemById, resetItem }, dispatch);
 
 export default connect( 
     mapStateToProps,
