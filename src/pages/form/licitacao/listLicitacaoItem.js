@@ -11,19 +11,54 @@ import Loading from "../../../components/loading";
 import CreateOrEditDialog from "../common/item/createOrEditDialog";
 import { loadItemLicitacao, searchItemLicitacao } from "../../../store/ducks/item";
 import { setDialog } from "../../../store/ducks/dialog";
-import { loadItemById, resetItem } from "../../../store/ducks/item"; 
+import { loadItemById, resetItem, deleteItem, exportItem, importItem } from "../../../store/ducks/item"; 
 
-const ListLicitacaoItem = ({ loadItemLicitacao, searchItemLicitacao, loadItemById, resetItem, setDialog, id, item, loaded }) => {
+const ListLicitacaoItem = ({ 
+    loadItemLicitacao, 
+    searchItemLicitacao, 
+    loadItemById, 
+    deleteItem, 
+    exportItem, 
+    importItem, 
+    resetItem, 
+    setDialog, 
+    id, 
+    item, 
+    loaded 
+}) => {
 
     const history = useHistory();
     const _loadItemById = (id) => { 
         loadItemById(id);
         setDialog(true);
     }
+    const _deleteItem = (id) => deleteItem({id: id, type: 'licitacao'}); 
+    
     const addItem = (e) => {
         resetItem();
         setDialog(true);
     }
+
+    const exportHandle = () => exportItem({type_id: id, type: 'licitacao'});
+
+    const importHandle = (event) => {
+        
+        event.preventDefault();
+
+        var input = event.target;
+
+        var reader = new FileReader();
+        reader.onload = () => {
+            let str  =  reader.result.split(";");
+            let file = str[1].replace("base64,", "");
+            importItem({type_id: id, type: 'licitacao', file: file});
+            document.querySelector('#_ref').value = ""; 
+        }
+ 
+
+        reader.readAsDataURL(input.files[0]); //readAsBinaryString // readAsDataURL
+    } 
+    
 
     useEffect(() => {
         loadItemLicitacao();
@@ -51,8 +86,22 @@ const ListLicitacaoItem = ({ loadItemLicitacao, searchItemLicitacao, loadItemByI
         <Card>
             <CardHeader title="Items"/>
             <CardContent>
-                <Button variant="contained" color="primary" style={{marginRight: 5}}>Importar</Button>
-                <Button variant="contained" color="primary" style={{marginRight: 5}}>Exportar</Button>
+                <Button
+                    color="primary" 
+                    style={{marginRight: 5}} 
+                    variant="contained"
+                    component="label"
+                    onChange={importHandle}
+                    >
+                    Importar
+                    <input
+                        type="file"
+                        id="_ref"
+                        style={{ display: "none" }}
+                />
+                </Button>
+
+                <Button variant="contained" color="primary" style={{marginRight: 5}} onClick={exportHandle}>Exportar</Button>
                 <Button variant="contained" color="primary">Remover todos</Button>
                 <Box>
                     <Box style={{ display: 'flex', flex: 1, width: '100%' }}>
@@ -79,8 +128,8 @@ const ListLicitacaoItem = ({ loadItemLicitacao, searchItemLicitacao, loadItemByI
                         headers={headers} 
                         showEdit={true}
                         showDelete={true}
-                        handleEdit={(id) => _loadItemById(id)}
-                        handleDelete={() => {}}
+                        handleEdit={(id)   => _loadItemById(id)}
+                        handleDelete={(id) => _deleteItem(id)}
                         data={item}
                         parentHandlePagination={(page, perPage) => loadItemLicitacao(page, perPage)}
                     />}
@@ -104,8 +153,16 @@ const mapStateToProps = ( state ) => {
     };
 };
 
-const mapDispatchToProps = (dispatch) =>
-    bindActionCreators({ loadItemLicitacao, searchItemLicitacao, setDialog, loadItemById, resetItem }, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators({ 
+    loadItemLicitacao, 
+    searchItemLicitacao, 
+    setDialog, 
+    loadItemById, 
+    deleteItem, 
+    exportItem, 
+    importItem, 
+    resetItem }, 
+dispatch);
 
 export default connect( 
     mapStateToProps,

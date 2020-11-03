@@ -7,6 +7,9 @@ export const types = {
     ASYNC_LOAD_ITEM_ID: "ASYNC_LOAD_ITEM_ID",
     ASYNC_CREATE_ITEM: "ASYNC_CREATE_ITEM", 
     ASYNC_UPDATE_ITEM: "ASYNC_UPDATE_ITEM", 
+    ASYNC_DELETE_ITEM: "ASYNC_DELETE_ITEM", 
+    ASYNC_EXPORT_ITEM: "ASYNC_EXPORT_ITEM",
+    ASYNC_IMPORT_ITEM: "ASYNC_IMPORT_ITEM",
     ITEM_ERROR:  "ITEM_ERROR",
     ITEM_LOADING: "ITEM_LOADING",
 };
@@ -40,6 +43,9 @@ export const loadItemLicitacao = (page, perPage) => ({ type: types.ASYNC_LOAD_IT
 export const loadItemById = ( id ) => ({ type: types.ASYNC_LOAD_ITEM_ID, payload: id})
 export const createItem  = (values) => ({ type: types.ASYNC_CREATE_ITEM , payload: values})
 export const updateItem  = (id, values) => ({ type: types.ASYNC_UPDATE_ITEM , payload: {id, values}})
-export const resetItem  = () => ({ type: types.RESET_ITEM_ID })
+export const deleteItem  = ( values ) => ({ type: types.ASYNC_DELETE_ITEM, payload: values})
+export const exportItem  = (values) => ({type: types.ASYNC_EXPORT_ITEM, payload: values});
+export const importItem  = (values) => ({type: types.ASYNC_IMPORT_ITEM, payload: values});
+export const resetItem   = () => ({ type: types.RESET_ITEM_ID })
 export const resetError  = () => ({ type: types.ITEM_ERROR })
 
