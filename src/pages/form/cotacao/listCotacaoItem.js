@@ -10,13 +10,13 @@ import { InputWithIcon } from '../../../components/form';
 import Loading from "../../../components/loading";
 import CreateOrEditDialog from "../common/item/createOrEditDialog";
 import DeleteAllDialog from "../common/item/deleteAllDialog";
-import { loadItemLicitacao, searchItemLicitacao } from "../../../store/ducks/item";
+import { loadItemCotacao, searchItemCotacao } from "../../../store/ducks/item";
 import { setDialog, setDialogDeleteAll } from "../../../store/ducks/dialog";
 import { loadItemById, resetItem, deleteItem, exportItem, importItem } from "../../../store/ducks/item"; 
 
-const ListLicitacaoItem = ({ 
-    loadItemLicitacao, 
-    searchItemLicitacao, 
+const ListCotacaoItem = ({ 
+    loadItemCotacao, 
+    searchItemCotacao, 
     loadItemById, 
     deleteItem, 
     exportItem, 
@@ -34,7 +34,7 @@ const ListLicitacaoItem = ({
         loadItemById(id);
         setDialog(true);
     }
-    const _deleteItem = (id) => deleteItem({id: id, type: 'licitacao'}); 
+    const _deleteItem = (id) => deleteItem({id: id, type: 'cotacao'}); 
     
     const addItem = (e) => {
         resetItem();
@@ -43,7 +43,7 @@ const ListLicitacaoItem = ({
 
     const deleteAllHandle = () =>  setDialogDeleteAll(true);  
     
-    const exportHandle = () => exportItem({type_id: id, type: 'licitacao'});
+    const exportHandle = () => exportItem({type_id: id, type: 'cotacao'});
 
     const importHandle = (event) => {
         
@@ -55,22 +55,22 @@ const ListLicitacaoItem = ({
         reader.onload = () => {
             let str  =  reader.result.split(";");
             let file = str[1].replace("base64,", "");
-            importItem({type_id: id, type: 'licitacao', file: file});
+            importItem({type_id: id, type: 'cotacao', file: file});
             document.querySelector('#_ref').value = ""; 
         }
  
 
-        reader.readAsDataURL(input.files[0]); //readAsBinaryString // readAsDataURL
+        reader.readAsDataURL(input.files[0]);
     } 
     
 
     useEffect(() => {
-        loadItemLicitacao();
+        loadItemCotacao();
     },[]);
 
     const [search, setSearch] = React.useState('');
     const handlerSearch = (e) => {
-        searchItemLicitacao(e.target.value);
+        searchItemCotacao(e.target.value);
         setSearch(e.target.value);
     }
 
@@ -79,8 +79,7 @@ const ListLicitacaoItem = ({
         { header: "Especificação", field: "specification"},
         { header: "Unidade", field: "unity"},
         { header: "Quantidade", field: "quantity"},
-        { header: "Valor Unitário",  field: "value"},
-        { header: "Valor Total",  field: "total"},
+
     ];  
 
     if(!loaded){
@@ -136,11 +135,11 @@ const ListLicitacaoItem = ({
                         handleEdit={(id)   => _loadItemById(id)}
                         handleDelete={(id) => _deleteItem(id)}
                         data={item}
-                        parentHandlePagination={(page, perPage) => loadItemLicitacao(page, perPage)}
+                        parentHandlePagination={(page, perPage) => loadItemCotacao(page, perPage)}
                     />}
 
-                    < CreateOrEditDialog type="licitacao" type_id={id}/>
-                    <DeleteAllDialog type="licitacao" type_id={id} />
+                    < CreateOrEditDialog type="cotacao" type_id={id}/>
+                    <DeleteAllDialog type="cotacao" type_id={id} />
                 </Box>
             </CardContent>
             <CardActions>
@@ -155,13 +154,13 @@ const mapStateToProps = ( state ) => {
         errors: state.item.errors || [],
         item: state.item.data || [],
         loaded: state.item.loaded,
-        id: state.licitacao.data.id || "",
+        id: state.cotacao.data.id || "",
     };
 };
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({ 
-    loadItemLicitacao, 
-    searchItemLicitacao, 
+    loadItemCotacao, 
+    searchItemCotacao, 
     setDialog,
     setDialogDeleteAll, 
     loadItemById, 
@@ -174,5 +173,5 @@ dispatch);
 export default connect( 
     mapStateToProps,
     mapDispatchToProps
-)(ListLicitacaoItem);
+)(ListCotacaoItem);
   

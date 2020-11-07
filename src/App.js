@@ -2,6 +2,7 @@ import React from 'react';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from "@material-ui/styles";
 import Routes from './routes/index';
+import SnackbarRedux from "./components/snackbar";
 
 const theme = createMuiTheme({
   palette: {
@@ -21,6 +22,7 @@ const  App = () => {
   return (
     <ThemeProvider theme={theme}>
       <Routes/>
+      <SnackbarRedux/>
     </ThemeProvider>
   );
 }

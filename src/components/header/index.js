@@ -10,15 +10,14 @@ import { makeStyles } from '@material-ui/core/styles';
 //import styles from './styles';
 const useStyles = makeStyles({
     root: {
-            //position: "absolute",
-            marginTop: "3%",
-            marginLeft: "-2%",
+            position: "relative",
+            marginTop: 55,
+            marginBottom: 20,
             width:"100%",
-            //left: 0,
-            //top: "8.5%",
             display: 'inline-flex',
             padding:8, 
-            // backgroundColor: "lightgray",  
+            borderRadius: '5px',
+            backgroundColor: "lightgray",  
     },
   });
 const CustomContainer = ({ breadcrumbsConfig }) => {
@@ -40,7 +39,7 @@ const CustomContainer = ({ breadcrumbsConfig }) => {
     }
     return (
         <Container maxWidth="xl" className={classes.root}>
-            <Box style={{flex:1, textAlign: 'start'}}>
+            <Box style={{flex:1, textAlign: 'start', marginLeft: 5, marginTop: 5}}>
                 {generateBreadcrumbs}
             </Box>
         </Container>

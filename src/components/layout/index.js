@@ -21,11 +21,12 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import BusinessIcon from '@material-ui/icons/Business';
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import CameraFrontIcon from '@material-ui/icons/CameraFront';
+import RecentActorsIcon from '@material-ui/icons/RecentActors';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import BookmarksIcon from '@material-ui/icons/Bookmarks';
 import PersonIcon from '@material-ui/icons/Person';
 import GavelIcon from '@material-ui/icons/Gavel';
+import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import Link from '@material-ui/core/Link';
 
 import { logoutUser } from '../../store/ducks/login';
@@ -91,12 +92,14 @@ const Layout = ({ logoutUser, children }) => {
                 <Divider />
                     <List>
                         {[
-                            {label: 'Dashboard', path: '/dashboard', icon: <DashboardIcon/> },
-                             {label: 'Secretaria', path: '/secretaria', icon: <BookmarksIcon/> },
-                            {label: 'Empresa', path: '/empresa', icon: <BusinessIcon/> },
+                            {label: 'Dashboards', path: '/dashboard', icon: <DashboardIcon/> },
+                            {label: 'Secretarias', path: '/secretaria', icon: <BookmarksIcon/> },
+                            {label: 'Empresas', path: '/empresa', icon: <BusinessIcon/> },
                             {label: 'Licitações', path: '/licitacao', icon: <GavelIcon/> },
-                            {label: 'Pessoa',  path: '/pessoa', icon: <PersonIcon/>},
-                            {label: 'Funcionario',  path: '/funcionario', icon: <CameraFrontIcon/>},
+                            {label: 'Cotações', path: '/cotacao', icon: <MonetizationOnIcon/> },
+                            {label: 'Pessoas',  path: '/pessoa', icon: <PersonIcon/>},
+                            {label: 'Funcionários',  path: '/funcionario', icon: <RecentActorsIcon/>},
+                        
                         ].map((elem, index) => (
                             <Link key={index} to={elem.path} component={RouterLink}>
                                 <ListItem button key={index}>
