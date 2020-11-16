@@ -94,6 +94,52 @@ import {
       console.log(error);
     }
   }
+
+  function* fetchEmpresa( ){
+    try {
+      let response = yield call(api.fetchEmpresa);
+      yield put({ type: types.LOAD_LIST_EMPRESA, payload: response.data });
+    } 
+    catch (error) {
+      console.log(error);
+    }
+  }
+
+  function* fetchCotacaoEmpresa({ payload }) {
+    try{
+      yield put({ type: types.COTACAO_EMPRESA_LOADING });
+      let response = yield call(api.fetchCotacaoEmpresa, payload);
+      yield put({ type: types.LOAD_COTACAO_EMPRESA, payload: response.data });
+    }
+    catch(error){
+      console.log(error)
+      yield put({ type: types.LOAD_COTACAO_EMPRESA, payload: null }); 
+    }
+  }
+
+
+  function* createCotacaoEmpresa ({ payload }) {
+    try {
+      yield put({ type: types.COTACAO_EMPRESA_LOADING });
+      let response = yield call(api.createCotacaoEmpresa, payload);
+      yield put({ type: types.LOAD_COTACAO_EMPRESA, payload: response.data });
+    } 
+    catch (error) {
+      console.log(error);
+    }
+
+  }
+
+  function* updateCotacaoEmpresa({payload}){
+    try {
+      yield put({ type: types.COTACAO_EMPRESA_LOADING });
+      let response = yield call(api.updateCotacaoEmpresa, payload.id, payload.values);
+      yield put({ type: types.LOAD_COTACAO_EMPRESA, payload: response.data });
+    } 
+    catch (error) {
+      console.log(error);
+    }
+  }
   
   export default function* cotacaoSaga() {
     yield all([
@@ -102,6 +148,10 @@ import {
       takeLatest(types.ASYNC_CREATE_COTACAO, createCotacao),
       takeLatest(types.ASYNC_UPDATE_COTACAO, updateCotacao),
       takeLatest(types.ASYNC_SEARCH_COTACAO, searchCotacao),
+      takeLatest(types.ASYNC_LOAD_LIST_EMPRESA, fetchEmpresa),
+      takeLatest(types.ASYNC_LOAD_COTACAO_EMPRESA, fetchCotacaoEmpresa),
+      takeLatest(types.ASYNC_CREATE_COTACAO_EMPRESA, createCotacaoEmpresa),
+      takeLatest(types.ASYNC_UPDATE_COTACAO_EMPRESA, updateCotacaoEmpresa),
     ]);
   }
   

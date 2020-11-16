@@ -5,11 +5,12 @@ import {  useParams } from "react-router-dom";
 
 import Loading from "../../../components/loading";
 import FormCotacao from "./formCotacao";
+import ListEmpresaCotacao from "./listEmpresaCotacao";
 import ListCotacaoItem from "./listCotacaoItem";
 
-import { loadCotacaoById } from "../../../store/ducks/cotacao";
+import { loadCotacaoById, loadListEmpresa } from "../../../store/ducks/cotacao";
 
-const CreateOrEditCotacao =  ({ loadCotacaoById, cotacao, loaded, errors  }) => {
+const CreateOrEditCotacao =  ({ loadCotacaoById, loadListEmpresa, listEmpresa, cotacao, loaded, errors  }) => {
     
     let { id } = useParams();  
     
@@ -17,8 +18,8 @@ const CreateOrEditCotacao =  ({ loadCotacaoById, cotacao, loaded, errors  }) => 
         if(id){
             loadCotacaoById(id);
         }
-
-    },[loadCotacaoById, id ])
+        loadListEmpresa();
+    },[loadCotacaoById, loadListEmpresa, id ])
 
     if(!loaded){
         return <Loading/>;
@@ -27,6 +28,8 @@ const CreateOrEditCotacao =  ({ loadCotacaoById, cotacao, loaded, errors  }) => 
     return (
         <>
             <FormCotacao cotacao={cotacao}/>
+            <br/>
+            {listEmpresa ? (<ListEmpresaCotacao cotacao={cotacao} listEmpresa={listEmpresa}/>) : (<> </>) }
             <br/>
             { cotacao && cotacao.id ? (<ListCotacaoItem/>) : (<> </>)}
         </>
@@ -38,11 +41,12 @@ const mapStateToProps = ( state ) => {
         errors: state.cotacao.errors || [],
         cotacao: state.cotacao.data,
         loaded: state.cotacao.loaded,
+        listEmpresa: state.cotacao.listEmpresa,
     };
 };
 
 const mapDispatchToProps = (dispatch) =>
-    bindActionCreators({ loadCotacaoById }, dispatch);
+    bindActionCreators({ loadCotacaoById, loadListEmpresa }, dispatch);
 
 export default connect( 
     mapStateToProps,

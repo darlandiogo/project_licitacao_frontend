@@ -19,8 +19,6 @@ export default React.memo(() => {
     const type     = useSelector(state => state.snackbar.type);
     const message  = useSelector(state => state.snackbar.message);
 
-    console.log(snackbar);
-
     const Alert = (props) => {
       return <MuiAlert elevation={6} variant="filled" {...props} />;
     }

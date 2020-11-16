@@ -23,7 +23,7 @@ const FormCotacao =  (props) => {
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
              <Card>
-                <CardHeader title="Licitação"/>
+                <CardHeader title="Cotação"/>
                 <CardContent>
                     <input type="hidden" name="id" value={id ? id: ""} ref={register} />
                     <Grid container spacing={3}>
@@ -62,7 +62,7 @@ const FormCotacao =  (props) => {
                                     rowsMax={30}
                                     as={Input}
                                     control={control}
-                                    label="Objetivo da Licitação"
+                                    label="Objetivo da Cotação"
                                     name="purpose_bidding"
                                     defaultValue={ purpose_bidding ? purpose_bidding: ""}
                                 />

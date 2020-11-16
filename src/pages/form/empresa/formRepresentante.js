@@ -49,7 +49,7 @@ const FormRepresentante = (props) => {
         }
     }
 
-    const renderPhones = useCallback(() => {
+    const renderRepresentante = useCallback(() => {
         return (
             <List>
                 {representantes && representantes.map( (item, index) => (
@@ -110,7 +110,7 @@ const FormRepresentante = (props) => {
                         </Grid>
                     </Grid>
 
-                {renderPhones()}
+                {renderRepresentante()}
 
                 </CardContent>
                 <CardActions>

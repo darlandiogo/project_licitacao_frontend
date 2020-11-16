@@ -31,7 +31,7 @@ import {
       if(!payload.notReload)
         yield put({ type: types.ITEM_LOADING });
 
-      let _data = yield select (state => state.licitacao.data);
+      let _data = yield select (state => state.cotacao.data);
 
       let params = {   
         page: payload.page || 1,
@@ -50,6 +50,9 @@ import {
 
     }
     catch(error){
+
+      console.log(error);
+      
       if(error.response && error.response.status === 401){
         yield put({ type: typesError.ERROR, payload: [] })
       }
