@@ -22,7 +22,7 @@ const FormRepresentante = (props) => {
     let _ref = React.createRef();
 
     let pessoa_juridica_id = "";
-    if(props.empresa.pessoa_juridica){
+    if(props.empresa && props.empresa.pessoa_juridica){
         pessoa_juridica_id = props.empresa.pessoa_juridica.id;
     }
 

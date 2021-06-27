@@ -5,7 +5,7 @@ import { Input, PrimaryButton } from '../../../components/form';
 
 const FormAddress =  (props) => {
 
-    let { pessoa_id, address, number, complement, postal_code, neighborhood, city, state } = props.address;
+    let { pessoa_id, address, number, complement, postal_code, neighborhood, city, state } = props.address || {};
     
     const { register, control, handleSubmit } = useForm();
     const onSubmit = data => props.updateAddress(data);

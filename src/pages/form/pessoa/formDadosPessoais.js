@@ -90,6 +90,7 @@ const FormDadosPessoais = (props) => {
                         <Grid item xs={12} sm={6}>
                             <FormGroup>
                                 <Controller
+                                    required
                                     as={Input}
                                     control={control}
                                     label="Qualificação"

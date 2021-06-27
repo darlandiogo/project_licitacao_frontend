@@ -10,9 +10,9 @@ import { createEmpresa, updateEmpresa } from '../../../store/ducks/empresa';
 
 const FormDadosEmpresa = (props) => {
 
-    let { id, name, email } = props.empresa;
+    let { id, name, email } = props.empresa || {};
     let cnpj, razao_social, type = "";
-    if(props.empresa.pessoa_juridica){
+    if(props.empresa && props.empresa.pessoa_juridica){
         cnpj = props.empresa.pessoa_juridica.cnpj;
         razao_social = props.empresa.pessoa_juridica.razao_social;
         type = props.empresa.pessoa_juridica.type;

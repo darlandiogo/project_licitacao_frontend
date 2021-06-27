@@ -29,9 +29,9 @@ const CreateOrEditEmpresa = ({ loadEmpresaById, updateAddress, updateRepresentan
         <div>
             <FormDadosEmpresa empresa={empresa}/>
             <br/>
-            <FormAddress updateAddress={updateAddress} address={empresa.address ? empresa.address: empresa}/>
+            <FormAddress updateAddress={updateAddress} address={empresa && empresa.address ? empresa.address: empresa}/>
             <br/>
-            <FormPhone updatePhone={updatePhone} phones={empresa.phones ? empresa.phones: []}/>
+            <FormPhone updatePhone={updatePhone} phones={empresa && empresa.phones ? empresa.phones: []}/>
             <br/>
             <FormRepresentate empresa={empresa} updateRepresentante={updateRepresentante} listPessoa={listPessoa} />
         </div>

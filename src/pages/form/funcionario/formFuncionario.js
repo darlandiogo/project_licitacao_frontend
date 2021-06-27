@@ -21,6 +21,7 @@ const FormFuncionario = (props) => {
     const onChangeValue = (event, values) => {
         event.preventDefault();
         if(values){
+            console.log(values);
             setValue(values.id);
         }
     }
